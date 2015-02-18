@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Task_1._7
 {
     class Program
     {
-        static void swap(int[,] array, int index1, int index2, int height)
+        static void Swap(int[,] array, int index1, int index2)
         {
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
                 int temp = array[i, index1];
                 array[i, index1] = array[i, index2];
@@ -14,15 +15,15 @@ namespace Task_1._7
             }
         }
 
-        static void selectionSort(int[,] array, int height, int number)
+        static void SelectionSort(int[,] array)
         {
             int min = 0;
 
-            for (int i = 0; i < number - 1; i++)
+            for (int i = 0; i < array.GetLength(1) - 1; i++)
             {
                 min = i;
 
-                for (int j = i + 1; j < number; j++)
+                for (int j = i + 1; j < array.GetLength(1); j++)
                 {
                     if (array[0, j] < array[0, min]) // если первый элемент j-ого столбца меньше минимального первого элемента другого столбца, то...
                     {
@@ -32,7 +33,7 @@ namespace Task_1._7
 
                 if (min != i)
                 {
-                    swap(array, i, min, height);
+                    Swap(array, i, min);
                 }
             }
         }
@@ -57,7 +58,7 @@ namespace Task_1._7
                 Console.WriteLine();
             }
 
-            selectionSort(array, height, width);
+            SelectionSort(array);
             Console.WriteLine("Матрица, отсортированная по первым элементам столбца:");
 
             for (int i = 0; i < height; i++)
