@@ -15,11 +15,11 @@ namespace Task_1._2
             }
             else
             {
-                Console.WriteLine("{0}-й член последовательности Фибоначчи: {1}", number, fibonacci(number));
+                Console.WriteLine("{0}-й член последовательности Фибоначчи: {1}", number, Fibonacci(number));
             }
         }
 
-        static int fibonacci(int number)
+        static int Fibonacci(int number)
         {
             int numTwoFib = 0; 
             int numOneFib = 1;

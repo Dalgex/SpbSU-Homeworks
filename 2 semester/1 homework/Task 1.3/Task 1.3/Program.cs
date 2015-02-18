@@ -19,7 +19,7 @@ namespace Task_1._3
             }
 
             Console.Write("\nОтсортированный массив: ");
-            quickSort(array, 0, number - 1);
+            QuickSort(array, 0, number - 1);
 
             for (int i = 0; i < number; i++)
             {
@@ -29,29 +29,29 @@ namespace Task_1._3
             Console.WriteLine();
         }
 
-        static void swap(int[] array, int index1, int index2)
+        static void Swap(int[] array, int index1, int index2)
         {
             int temp = array[index1];
             array[index1] = array[index2];
             array[index2] = temp;
         }
 
-        static void insertionSort(int[] array, int first, int last)
+        static void InsertionSort(int[] array, int first, int last)
         {
-            for (int i = first; i <= last; i++) 
-	        {
-		        for (int j = i; j > 0 && array[j] < array[j - 1]; j--)
-		        {
-			        swap(array, j, j - 1);
-		        }
-	        }
+            for (int i = first; i <= last; i++)
+            {
+                for (int j = i; j > 0 && array[j] < array[j - 1]; j--)
+                {
+                    Swap(array, j, j - 1);
+                }
+            }
         }
 
-        static void quickSort(int[] array, int first, int last)
+        static void QuickSort(int[] array, int first, int last)
         {
             if (last - first < 10)
             {
-                insertionSort(array, first, last);
+                InsertionSort(array, first, last);
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Task_1._3
                    
                     if (i < j)
                     {
-                        swap(array, i, j);
+                        Swap(array, i, j);
                         i++;
                         j--;
                     }
@@ -82,12 +82,12 @@ namespace Task_1._3
 
                 if (i < last)
                 {
-                    quickSort(array, i, last);
+                    QuickSort(array, i, last);
                 }
 
                 if (first < j)
                 {
-                    quickSort(array, first, j);
+                    QuickSort(array, first, j);
                 }
             }
         }
