@@ -167,15 +167,15 @@ namespace Task_2._4
         {
             expression = expression.Replace(" ", string.Empty); // удаляем все пробелы
 
-            if (!IsDigit(expression[0]) && !IsOpenBracket(expression[0])) // если первый символ не цифра и не скобка
+            if (!IsDigit(expression[0]) && !IsOpenBracket(expression[0]))
             {
                 Console.WriteLine("Некорректный ввод. Первый символ выражения не являяется цифрой или открывающей скобкой");
                 return false;
             }
 
-            int lastIndex = expression.Length; // индекс последнего элемента
+            int lastIndex = expression.Length - 1; // индекс последнего элемента
 
-            if (!IsDigit(expression[lastIndex - 1]) && !IsCloseBracket(expression[lastIndex - 1]))
+            if (!IsDigit(expression[lastIndex]) && !IsCloseBracket(expression[lastIndex]))
             {
                 Console.WriteLine("Некорректный ввод. Последний символ выражения не являяется цифрой или закрывающей скобкой");
                 return false;
@@ -246,7 +246,7 @@ namespace Task_2._4
                     return false;
                 }
 
-                if (IsOperator(expression[i - 1]) && IsOperator(expression[i])) // два оператора подряд
+                if (IsOperator(expression[i - 1]) && IsOperator(expression[i]))
                 {
                     Console.WriteLine("Некорректный ввод. Два оператора подряд");
                     return false;
