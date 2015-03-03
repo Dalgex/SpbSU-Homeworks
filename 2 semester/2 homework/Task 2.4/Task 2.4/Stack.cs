@@ -10,13 +10,13 @@ namespace Task_2._4
     {
         class StackElement
         {
-            public StackElement pNext { get; private set; } 
-            public object value { get; private set; }
+            public StackElement Next { get; private set; } 
+            public object Value { get; private set; }
 
-            public StackElement(object value, StackElement pNext)
+            public StackElement(object value, StackElement next)
             {
-                this.pNext = pNext;
-                this.value = value;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
@@ -38,7 +38,7 @@ namespace Task_2._4
         /// </summary>
         public object Top()
         {
-            return this.top.value;
+            return this.top.Value;
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Task_2._4
                 return 1;
             }
 
-            object result = this.top.value;
-            this.top = this.top.pNext;
+            object result = this.top.Value;
+            this.top = this.top.Next;
             this.size--;
             return result;
         }
