@@ -259,7 +259,7 @@ namespace Task_2._4
         /// <summary>
         ///  Вычисляем значение
         /// </summary>
-        public void calculateValues(char operation, ref bool isValid)
+        public void CalculateValues(char operation, ref bool isValid)
         {
             int value2 = (int) stack.Pop();
             int value1 = (int) stack.Pop();
@@ -314,7 +314,7 @@ namespace Task_2._4
                     return;
                 }
 
-                calculateValues(symbol, ref isValid);
+                CalculateValues(symbol, ref isValid);
             }
         }
 

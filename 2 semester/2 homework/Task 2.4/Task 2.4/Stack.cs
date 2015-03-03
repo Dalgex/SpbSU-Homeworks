@@ -23,12 +23,6 @@ namespace Task_2._4
         private StackElement top;
         private int size;
 
-        public Stack()
-        {
-            this.top = null;
-            this.size = 0;
-        }
-
         /// <summary>
         ///  Добавление элемента
         /// </summary>
