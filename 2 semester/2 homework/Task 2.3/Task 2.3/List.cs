@@ -6,69 +6,126 @@ namespace Task_2._3
     {
         class ListElement
         {
-            public ListElement pNext { get; private set; }
-            public string word { get; private set; }
-            public int counter { get; set; } // переменная счетчик. Записываем, сколько раз встретилось нам данное слово
+            public ListElement Next { get; set; }
+            public string Value { get; private set; }
+            public int Counter { get; set; } // переменная счетчик. Записываем, сколько раз встретилось нам данное значение
 
-            public ListElement(string word, ListElement pNext)
+            public ListElement(string value, ListElement next)
             {
-                this.pNext = pNext;
-                this.word = word;
-                this.counter = 0;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
         private ListElement head;
         private int size; 
 
-        public List()
-        {
-            this.head = null;
-            this.size = 0;
-        }
-
-        // Добавление элемента
-        public void AddListElement(string word)
+        /// <summary>
+        ///  Добавление элемента
+        /// </summary>
+        public void AddListElement(string value)
         {
             ListElement current = this.head;
-            ListElement newElement = new ListElement(word, this.head);
 
-            while ((current != null) && (current.word != word)) // пока не конец списка и нашего слова не было...
+            while ((current != null) && (current.Value != value)) // пока не конец списка и наше значение не встретилось...
             {
-                current = current.pNext;
+                current = current.Next;
             }
 
-            if (current == null) // если current == null, это означает, что слово имеет такой же ключ, как и другое слово, которое лежит уже в этом списке, или список еще пуст
+            if (current == null) // если current == null, это означает, что значение имеет такой же ключ, как и другое значение, которое лежит уже в этом списке, или список еще пуст
             {
-                this.head = newElement;
-                this.head.counter++;
+                this.head = new ListElement(value, this.head);
+                this.head.Counter++;
                 this.size++;
             }
             else
             {
-                current.counter++; // current != null, т.е. мы нашли слово в списке, которое ранее встречалось в тексте. Тогда просто увеличиваем счетчик
+                current.Counter++; // current != null, т.е. мы нашли элемент в списке, который ранее уже встречался. Тогда просто увеличиваем счетчик
             }
         }
 
-        // Количество элементов в списке
+        /// <summary>
+        ///  Количество элементов в списке
+        /// </summary>
         public int Count()
         {
             return this.size;
         }
 
-        // Сколько раз встретилось слово, которое сейчас находится в голове списка
-        public int NumberOfWords()
+        /// <summary>
+        ///  Сколько раз встретилось значение, которое сейчас находится в голове списка
+        /// </summary>
+        public int NumberOfElements()
         {
-            return this.head.counter;
+            return this.head.Counter;
         }
 
-        // Удаление элемента
+        /// <summary>
+        ///  Определяет, входит ли элемент в состав списка
+        /// </summary>
+        public bool Contains(string value)
+        {
+            ListElement current = this.head;
+
+            if (current == null)
+            {
+                return false;
+            }
+
+            while ((current.Value != value) && (current.Next != null))
+            {
+                current = current.Next;
+            }
+
+            return current.Value == value;
+        }
+
+        /// <summary>
+        ///  Удаление верхнего элемента
+        /// </summary>
         public string DeleteListElement()
         {
-            string word = this.head.word;
-            this.head = this.head.pNext;
+            string value = this.head.Value;
+            this.head = this.head.Next;
             this.size--;
-            return word;
+            return value;
+        }
+
+        /// <summary>
+        /// Удаление указанного элемента
+        /// </summary>
+        public bool RemoveListElement(string value)
+        {
+            if (this.head == null)
+            {
+                return false;
+            }
+
+            ListElement current = this.head;
+            ListElement previous = this.head;
+
+            while (current != null && current.Value != value)
+            {
+                previous = current;
+                current = current.Next;
+            }
+
+            if (current != null)
+            {
+                if (previous != this.head)
+                {
+                    previous.Next = current.Next; 
+                }
+                else
+                {
+                    this.head = current.Next;
+                }
+
+                this.size--;
+                return true;
+            }
+
+            return false;
         }
     }
 }
