@@ -6,13 +6,13 @@ namespace Task_2._2
     {
         class ListElement
         {
-            public ListElement pNext { get; set; }
-            public int value { get; private set; }
+            public ListElement Next { get; set; }
+            public int Value { get; private set; }
 
-            public ListElement(int value, ListElement pNext)
+            public ListElement(int value, ListElement next)
             {
-                this.pNext = pNext;
-                this.value = value;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
@@ -22,33 +22,40 @@ namespace Task_2._2
         public List()
         {
             this.head = new ListElement(0, null);
-            this.size = 0;
         }
 
-        // Добавление элемента
+        /// <summary>
+        ///  Добавление элемента
+        /// </summary>
         public void AddListElement(int value)
         {
-            this.head.pNext = new ListElement(value, this.head.pNext);
+            this.head.Next = new ListElement(value, this.head.Next);
             this.size++;
             Console.WriteLine("Значение добавлено");
         }
 
-        // Проверка на пустоту
+        /// <summary>
+        ///  Проверка на пустоту
+        /// </summary>
         private bool IsEmpty()
         {
-            return this.head.pNext == null;
+            return this.head.Next == null;
         }
 
-        // Количество элементов в списке
+        /// <summary>
+        ///  Количество элементов в списке
+        /// </summary>
         public int Count()
         {
             return this.size;
         }
 
-        // Распечатывание списка
+        /// <summary>
+        ///  Распечатывание списка
+        /// </summary>
         public void PrintList()
         {
-            ListElement current = this.head.pNext;
+            ListElement current = this.head.Next;
 
             if (IsEmpty())
             {
@@ -60,14 +67,16 @@ namespace Task_2._2
 
             while (current != null)
             {
-                Console.Write("{0} ", current.value);
-                current = current.pNext;
+                Console.Write("{0} ", current.Value);
+                current = current.Next;
             }
 
             Console.WriteLine();
         }
 
-        // Определяет, входит ли элемент в состав списка
+        /// <summary>
+        ///  Определяет, входит ли элемент в состав списка
+        /// </summary>
         public bool Contains(int value)
         {
             if (IsEmpty())
@@ -75,25 +84,22 @@ namespace Task_2._2
                 return false;
             }
 
-            ListElement current = this.head.pNext;
+            ListElement current = this.head.Next;
 
-            while ((current.value != value) && (current.pNext != null))
+            while ((current.Value != value) && (current.Next != null))
             {
-                current = current.pNext;
+                current = current.Next;
             }
 
-            if (current.value == value)
-            {
-                return true;
-            }
-
-            return false;
+            return current.Value == value;
         }
 
-        // Удаление указанного элемента
+        /// <summary>
+        ///  Удаление указанного элемента
+        /// </summary>
         public void RemoveListElement(int value)
         {
-            ListElement current = this.head.pNext;
+            ListElement current = this.head.Next;
             ListElement previous = this.head;
 
             if (IsEmpty())
@@ -102,15 +108,15 @@ namespace Task_2._2
                 return;
             }
 
-            while ((current.value != value) && (current.pNext != null))
+            while ((current.Value != value) && (current.Next != null))
             {
-                current = current.pNext;
-                previous = previous.pNext;
+                current = current.Next;
+                previous = previous.Next;
             }
 
-            if (current.value == value)
+            if (current.Value == value)
             {
-                previous.pNext = current.pNext;
+                previous.Next = current.Next;
                 this.size--;
                 Console.WriteLine("Элемент удален");
             }

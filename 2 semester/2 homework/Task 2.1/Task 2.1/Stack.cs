@@ -6,26 +6,22 @@ namespace Task_2._1
     {
         class StackElement
         {
-            public StackElement pNext { get; private set; } // pNext сокращенно от pointer next
-            public int value { get; private set; }
+            public StackElement Next { get; private set; }
+            public int Value { get; private set; }
 
-            public StackElement(int value, StackElement pNext)
+            public StackElement(int value, StackElement next)
             {
-                this.pNext = pNext;
-                this.value = value;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
         private StackElement top;
         private int size;
 
-        public Stack()
-        {
-            this.top = null;
-            this.size = 0;
-        }
-
-        // Добавление элемента
+        /// <summary>
+        ///  Добавление элемента
+        /// </summary>
         public void Push(int value)
         {
             StackElement newElement = new StackElement(value, this.top);
@@ -33,13 +29,17 @@ namespace Task_2._1
             this.size++;
         }
 
-        // Чтение верхнего элемента
+        /// <summary>
+        ///  Чтение верхнего элемента
+        /// </summary>
         public int Top()
         {
-            return this.top.value;
+            return this.top.Value;
         }
 
-        // Распечатывание стека
+        /// <summary>
+        ///  Распечатывание стека
+        /// </summary>
         public void PrintStack()
         {
             StackElement current = this.top;
@@ -54,20 +54,24 @@ namespace Task_2._1
 
             while (current != null)
             {
-                Console.Write("{0} ", current.value);
-                current = current.pNext;
+                Console.Write("{0} ", current.Value);
+                current = current.Next;
             }
 
             Console.WriteLine();
         }
 
-        // Проверка на пустоту
+        /// <summary>
+        ///  Проверка на пустоту
+        /// </summary>
         public bool IsEmpty()
         {
             return this.top == null;
         }
 
-        // Удаление последнего элемента
+        /// <summary>
+        ///  Удаление последнего элемента
+        /// </summary>
         public int Pop()
         {
             if (IsEmpty())
@@ -76,14 +80,16 @@ namespace Task_2._1
                 return 1;
             }
 
-            int result = this.top.value;
-            this.top = this.top.pNext;
+            int result = this.top.Value;
+            this.top = this.top.Next;
             this.size--;
             Console.WriteLine("Последний элемент {0} удален", result);
             return result;
         }
 
-        // Возвращает размер стека
+        /// <summary>
+        ///  Возвращает размер стека
+        /// </summary>
         public int Size()
         {
             return this.size;
