@@ -6,24 +6,18 @@ namespace Task_3._1
     {
         class StackElement
         {
-            public StackElement pNext { get; private set; }
-            public object value { get; private set; }
+            public StackElement Next { get; private set; }
+            public object Value { get; private set; }
 
-            public StackElement(object value, StackElement pNext)
+            public StackElement(object value, StackElement next)
             {
-                this.pNext = pNext;
-                this.value = value;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
         private StackElement top;
         private int size;
-
-        public Stack()
-        {
-            this.top = null;
-            this.size = 0;
-        }
 
         /// <summary>
         ///  Добавление элемента
@@ -40,7 +34,7 @@ namespace Task_3._1
         /// </summary>
         public object Top()
         {
-            return this.top.value;
+            return this.top.Value;
         }
 
         /// <summary>
@@ -61,8 +55,8 @@ namespace Task_3._1
                 return 1;
             }
 
-            object result = this.top.value;
-            this.top = this.top.pNext;
+            object result = this.top.Value;
+            this.top = this.top.Next;
             this.size--;
             return result;
         }
