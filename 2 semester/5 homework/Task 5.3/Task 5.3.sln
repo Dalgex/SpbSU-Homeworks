@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task 5.3", "Task 5.3\Task 5.3.csproj", "{E603275F-F14D-406A-9041-59E5AE4BF5BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoldTest", "FoldTest\FoldTest.csproj", "{405E56ED-9B7B-48F9-A550-5B5AD9E1C19D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E603275F-F14D-406A-9041-59E5AE4BF5BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E603275F-F14D-406A-9041-59E5AE4BF5BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E603275F-F14D-406A-9041-59E5AE4BF5BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E603275F-F14D-406A-9041-59E5AE4BF5BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405E56ED-9B7B-48F9-A550-5B5AD9E1C19D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405E56ED-9B7B-48F9-A550-5B5AD9E1C19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405E56ED-9B7B-48F9-A550-5B5AD9E1C19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405E56ED-9B7B-48F9-A550-5B5AD9E1C19D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
