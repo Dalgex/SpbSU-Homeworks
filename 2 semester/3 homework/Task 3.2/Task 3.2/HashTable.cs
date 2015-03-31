@@ -2,11 +2,14 @@
 
 namespace Task_3._2
 {
+    /// <summary>
+    /// Предоставляет коллекцию пар "ключ-значение", которые упорядочены по хэш-коду ключа
+    /// </summary>
     public class HashTable
     {
         private const int hashTableSize = 1000;
 
-        List[] hashTableList;
+        private List[] hashTableList;
 
         public delegate int Hashing(string value);
         private Hashing hashFunction;
@@ -39,7 +42,7 @@ namespace Task_3._2
         /// <summary>
         /// Возвращает хеш-код указанного ключа
         /// </summary>
-        public int GetHash(string value)
+        private int GetHash(string value)
         {
             return hashFunction(value);
         }

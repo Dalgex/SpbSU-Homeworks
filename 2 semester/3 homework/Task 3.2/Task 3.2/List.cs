@@ -96,13 +96,8 @@ namespace Task_3._2
         /// </summary>
         public bool RemoveListElement(string value)
         {
-            if (this.head == null)
-            {
-                return false;
-            }
-
-            ListElement current = this.head;
-            ListElement previous = this.head;
+            ListElement previous = head;
+            ListElement current = head;
 
             while (current != null && current.Value != value)
             {
@@ -112,16 +107,16 @@ namespace Task_3._2
 
             if (current != null)
             {
-                if (previous != this.head)
+                if (current == head)
                 {
-                    previous.Next = current.Next;
+                    head = head.Next;
                 }
                 else
                 {
-                    this.head = current.Next;
+                    previous.Next = current.Next;
                 }
 
-                this.size--;
+                size--;
                 return true;
             }
 
