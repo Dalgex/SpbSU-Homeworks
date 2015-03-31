@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Task_5._4
 {
+    /// <summary>
+    /// Реализует движение курсора в консоли
+    /// </summary>
     public class ControlCursor
     {
+        /// <summary>
+        /// Движение вправо
+        /// </summary>
         public void Right(object sender, EventArgs args)
         {
             if (Console.CursorLeft < Console.BufferWidth - 1)
@@ -16,6 +22,9 @@ namespace Task_5._4
             }
         }
 
+        /// <summary>
+        /// Движение влево
+        /// </summary>
         public void Left(object sender, EventArgs args)
         {
             if (Console.CursorLeft > 0)
@@ -24,6 +33,9 @@ namespace Task_5._4
             }
         }
 
+        /// <summary>
+        /// Движение вниз
+        /// </summary>
         public void Down(object sender, EventArgs args)
         {
             if (Console.CursorTop < Console.BufferHeight - 1)
@@ -32,6 +44,9 @@ namespace Task_5._4
             }
         }
 
+        /// <summary>
+        /// Движение вверх
+        /// </summary>
         public void Up(object sender, EventArgs args)
         {
             if (Console.CursorTop > 0)

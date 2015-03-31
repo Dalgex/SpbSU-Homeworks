@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task_5._4
 {
+    /// <summary>
+    /// Реализует цикл обработки событий
+    /// </summary>
     public class EventLoop
     {
         public event EventHandler<EventArgs> LeftHandler = (sender, args) => { };
@@ -13,6 +16,9 @@ namespace Task_5._4
         public event EventHandler<EventArgs> UpHandler = (sender, args) => { };
         public event EventHandler<EventArgs> DownHandler = (sender, args) => { };
 
+        /// <summary>
+        /// Функция для работы с событиями по нажатию клавиши
+        /// </summary>
         public void Run()
         {
             while (true)
