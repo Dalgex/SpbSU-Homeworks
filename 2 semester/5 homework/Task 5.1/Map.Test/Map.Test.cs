@@ -12,17 +12,11 @@ namespace Map.Test
         private List<int> map1;
         private List<int> map2;
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            list = new List<int> { 1, 8, 6, 3};
-            map1 = new MapClass<int>().Map(list, x => x * 2);
-            map2 = new MapClass<int>().Map(list, x => x * x);
-        }
-
         [TestMethod]
         public void TestMethod1()
         {
+            list = new List<int> { 1, 8, 6, 3 };
+            map1 = new MapClass<int>().Map(list, x => x * 2);
             Assert.AreEqual(list[0] * 2, map1[0]);
             Assert.AreEqual(list[1] * 2, map1[1]);
             Assert.AreEqual(list[2] * 2, map1[2]);
@@ -32,6 +26,8 @@ namespace Map.Test
         [TestMethod]
         public void TestMethod2()
         {
+            list = new List<int> { 1, 4, 7, 5 };
+            map2 = new MapClass<int>().Map(list, x => x * x);
             Assert.AreEqual(list[0] * list[0], map2[0]);
             Assert.AreEqual(list[1] * list[1], map2[1]);
             Assert.AreEqual(list[2] * list[2], map2[2]);

@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Task_5._1
 {
-    public class MapClass <T>
+    /// <summary>
+    /// Класс, реализующий функцию Map
+    /// </summary>
+    public class MapClass<T>
     {
+        /// <summary>
+        /// Map функция, которая принимает список и функцию, преобразующую элемент списка
+        /// </summary>
         public List<T> Map(List<T> list, Func<T, T> function)
         {
             List<T> mapList = new List<T>();
