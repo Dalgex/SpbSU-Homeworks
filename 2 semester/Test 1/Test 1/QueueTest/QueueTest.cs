@@ -48,7 +48,7 @@ namespace QueueTest
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void AddElements()
+        public void RemoveElementFromEmptyQueue()
         {
             queue.Enqueue(5, 8);
             queue.Dequeue();

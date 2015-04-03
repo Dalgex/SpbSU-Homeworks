@@ -63,7 +63,7 @@ namespace Test_1
         /// <summary>
         /// Поиск элемента с самым высоким приоритетом
         /// </summary>
-        public void newHighestPriority()
+        public void NewHighestPriority()
         {
             if (Count == 0)
             {
@@ -112,7 +112,7 @@ namespace Test_1
             if (current == head)
             {
                 head = head.Next;
-                newHighestPriority();
+                NewHighestPriority();
                 return current.Value;
             }
 
@@ -120,13 +120,13 @@ namespace Test_1
             {
                 tail.Previous.Next = null;
                 tail = current.Previous;
-                newHighestPriority();
+                NewHighestPriority();
                 return current.Value;
             }
 
             current.Previous.Next = current.Next;
             current.Next.Previous = current.Previous;
-            newHighestPriority();
+            NewHighestPriority();
             return current.Value;
         }
     }
