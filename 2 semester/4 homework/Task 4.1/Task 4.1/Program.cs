@@ -10,7 +10,7 @@ namespace Task_4._1
     {
         static void Main(string[] args)
         {
-            ConstructParseTree tree = ReadingFile.ReadFromFile("expression.txt");
+            var tree = ReadingFile.ReadFromFile("expression1.txt");
             Console.WriteLine("Дерево разбора:{0}", tree.PrintParseTree());
             Console.WriteLine("Результат: {0}", tree.CalculateTree());
         }

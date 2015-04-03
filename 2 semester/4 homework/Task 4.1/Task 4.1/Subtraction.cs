@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Task_4._1
 {
-    class Subtraction : ParseTree
+    /// <summary>
+    /// Класс для вычитания
+    /// </summary>
+    class Subtraction : Operator
     {
-        public Subtraction(char value)
-            : base(value) { }
-
         public override int Calculate()
         {
             return LeftChild.Calculate() - RightChild.Calculate();

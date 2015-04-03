@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Task_4._1
 {
-    class Division : ParseTree
+    /// <summary>
+    /// Класс для деления
+    /// </summary>
+    class Division : Operator
     {
-        public Division(char value)
-            : base(value) { }
-
         public override int Calculate()
         {
             if (RightChild.Calculate() == 0)

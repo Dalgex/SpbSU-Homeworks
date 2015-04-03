@@ -61,7 +61,8 @@
     <Compile Include="FileNotFoundException.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="Operand.cs" />
-    <Compile Include="ParseTree.cs" />
+    <Compile Include="Operator.cs" />
+    <Compile Include="ParseTreeNode.cs" />
     <Compile Include="ConstructParseTree.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

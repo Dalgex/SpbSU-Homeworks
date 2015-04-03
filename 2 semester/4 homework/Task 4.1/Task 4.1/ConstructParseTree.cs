@@ -8,79 +8,22 @@ namespace Task_4._1
 {
     public class ConstructParseTree
     {
-        private ParseTree tree;
+        private ParseTreeNode tree; // корень дерева
 
-        private ParseTree Operator(char value)
+        /// <summary>
+        /// Возвращает новый узел оператора symbol
+        /// </summary>
+        private ParseTreeNode Operator(char symbol)
         {
-            switch (value)
+            switch (symbol)
             {
-                case '+': return new Addition('+');
-                case '-': return new Subtraction('-');
-                case '*': return new Multiplication('*');
-                case '/': return new Division('/');
+                case '+': return new Addition();
+                case '-': return new Subtraction();
+                case '*': return new Multiplication();
+                case '/': return new Division();
             }
 
             throw new InvalidOperationException("Неправильный символ");
-        }
-
-        /// <summary>
-        /// Проверка, полная ли ветвь
-        /// </summary>
-        private bool IsBranchFull(ParseTree treeElement)
-        {
-            if (treeElement == null)
-            {
-                return false;
-            }
-
-            if (IsOperator(treeElement.Value))
-            {
-                return IsBranchFull(treeElement.LeftChild) && IsBranchFull(treeElement.RightChild);
-            }
-
-            return true;
-        }
-
-        private void AddElement(ParseTree treeElement, char value)
-        {
-            if (treeElement.LeftChild == null)
-            {
-                if (IsOperator(value))
-                {
-                    treeElement.LeftChild = Operator(value);
-                }
-                else
-                {
-                    treeElement.LeftChild = new Operand(value);
-                }
-                
-                return;
-            }
-
-            if (IsOperator(treeElement.LeftChild.Value) && !IsBranchFull(treeElement.LeftChild))
-            {
-                AddElement(treeElement.LeftChild, value);
-                return;
-            }
-
-            if (treeElement.RightChild == null)
-            {
-                if (IsOperator(value))
-                {
-                    treeElement.RightChild = Operator(value);
-                }
-                else
-                {
-                    treeElement.RightChild = new Operand(value);
-                }
-
-                return;
-            }
-
-            if (IsOperator(treeElement.RightChild.Value) && !IsBranchFull(treeElement.RightChild))
-            {
-                AddElement(treeElement.RightChild, value);
-            }
         }
 
         /// <summary>
@@ -90,15 +33,25 @@ namespace Task_4._1
         {
             if (tree != null)
             {
-                AddElement(tree, value);
+                if (IsOperator(value))
+                {
+                    tree.AddElement(Operator(value));
+                }
+                else
+                {
+                    tree.AddElement(new Operand(value));
+                }
             }
-            else if (IsOperator(value))
+            else 
             {
-                tree = Operator(value);
-            }
-            else
-            {
-                tree = new Operand(value);
+                if (IsOperator(value))
+                {
+                    tree = Operator(value);
+                }
+                else
+                {
+                    tree = new Operand(value);
+                }
             }
         } 
 

@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Task_4._1
 {
-    class Operand : ParseTree
+    /// <summary>
+    /// Класс для операндов
+    /// </summary>
+    class Operand : ParseTreeNode
     {
         public Operand(char value)
-            : base(value) { }
+        {
+            Value = value;
+        }
+
+        public char Value { get; set; }
 
         public override int Calculate()
         {
@@ -21,9 +28,9 @@ namespace Task_4._1
             return " " + Convert.ToString(Value);
         }
 
-        public override string Print()
+        public override bool AddElement(ParseTreeNode treeElement)
         {
-            return string.Empty;
+            return false;
         }
     }
 }

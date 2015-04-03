@@ -7,6 +7,9 @@ using System.IO;
 
 namespace Task_4._1
 {
+    /// <summary>
+    /// Класс для чтения из файла
+    /// </summary>
     public static class ReadingFile
     {
         /// <summary>
@@ -14,7 +17,7 @@ namespace Task_4._1
         /// </summary>
         public static ConstructParseTree ReadFromFile(string fileName)
         {
-            ConstructParseTree tree = new ConstructParseTree();
+            var tree = new ConstructParseTree();
             FileInfo file = new FileInfo(fileName);
 
             if (!file.Exists)
