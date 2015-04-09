@@ -49,10 +49,8 @@ namespace Task_6._1
         /// </summary>
         public void Clear()
         {
-            while (!IsEmpty())
-            {
-                Pop();
-            }
+            this.top = null;
+            this.size = 0;
         }
 
         /// <summary>
