@@ -106,7 +106,7 @@ namespace Task_6._2
             // Рисуем секундную стрелку
             int lengthOfSecondHand = 125;
             handCoordinates = CoordinatesForMinuteAndSecondHands(ss, lengthOfSecondHand);
-            graph.DrawLine(new Pen(Color.Red, 2f), new Point(centerX, centerY), new Point(handCoordinates[0], handCoordinates[1]));
+            graph.DrawLine(new Pen(Color.Red, 1f), new Point(centerX, centerY), new Point(handCoordinates[0], handCoordinates[1]));
             
             // Рисуем минутную стрелку
             int lengthOfMinuteHand = 110;
@@ -122,13 +122,13 @@ namespace Task_6._2
             
             // Сдвигаем объект по часовой стрелке, чтобы деления стояли ровно там, где нужно
             // Если не сдвинуть, то они будут стоять немного неправильно, и секундная стрелка будет каждую секунду указывать не на одно из них, а между ними
-            graph.RotateTransform(2.8f);
+            graph.RotateTransform(3.0f);
 
             for (int i = 0; i < 60; i++)
             {
                 if (i % 5 == 0)
                 {
-                    graph.FillRectangle(Brushes.DarkCyan, 85, -5, 6, 3);
+                    graph.FillRectangle(Brushes.DarkCyan, 85, -6, 6, 3);
                     graph.RotateTransform(6);
                 }
                 else
