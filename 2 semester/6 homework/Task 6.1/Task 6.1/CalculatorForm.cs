@@ -23,104 +23,30 @@ namespace Task_6._1
             calculator = new Calculator();
         }
 
-        /// <summary>
-        /// Происходит при нажатии цифры
-        /// </summary>
-        private void OnDigitClick(string symbol)
+        private void OnDigitClick(object sender, EventArgs e)
         {
+            var button = (Button)sender;
             bool isCorrect = true;
-            label1.Text = calculator.AddNumber(label1.Text, symbol, ref isCorrect);
+            label1.Text = calculator.AddNumber(label1.Text, button.Text, ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
         }
 
-        /// <summary>
-        /// Происходит при нажатии арифметического знака
-        /// </summary>
-        private void OnOperatorClick(string symbol)
+        private void OnOperatorClick(object sender, EventArgs e)
         {
+            var button = (Button)sender;
             bool isCorrect = true;
-            label1.Text = calculator.AddOperator(label1.Text, symbol, ref isCorrect);
+            label1.Text = calculator.AddOperator(label1.Text, button.Text, ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
         }
 
-        private void OnButton1Click(object sender, EventArgs e)
-        {
-            OnDigitClick("1");
-        }
-
-        private void OnButton2Click(object sender, EventArgs e)
-        {
-            OnDigitClick("2");
-        }
-
-        private void OnButton3Click(object sender, EventArgs e)
-        {
-            OnDigitClick("3");
-        }
-
-        private void OnButton4Click(object sender, EventArgs e)
-        {
-            OnDigitClick("4");
-        }
-
-        private void OnButton5Click(object sender, EventArgs e)
-        {
-            OnDigitClick("5");
-        }
-
-        private void OnButton6Click(object sender, EventArgs e)
-        {
-            OnDigitClick("6");
-        }
-
-        private void OnButton7Click(object sender, EventArgs e)
-        {
-            OnDigitClick("7");
-        }
-
-        private void OnButton8Click(object sender, EventArgs e)
-        {
-            OnDigitClick("8");
-        }
-
-        private void OnButton9Click(object sender, EventArgs e)
-        {
-            OnDigitClick("9");
-        }
-
-        private void OnButton10Click(object sender, EventArgs e)
-        {
-            OnDigitClick("0");
-        }
-
-        private void OnButton11Click(object sender, EventArgs e)
-        {
-            OnOperatorClick("+");
-        }
-
-        private void OnButton12Click(object sender, EventArgs e)
-        {
-            OnOperatorClick("-");
-        }
-
-        private void OnButton13Click(object sender, EventArgs e)
-        {
-            OnOperatorClick("*");
-        }
-
-        private void OnButton14Click(object sender, EventArgs e)
-        {
-            OnOperatorClick("/");
-        }
-
-        private void OnButton15Click(object sender, EventArgs e)
+        private void OnFloatingPointClick(object sender, EventArgs e)
         {
             bool isCorrect = true;
             label1.Text = calculator.AddFloatingPoint(label1.Text, ",", ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
         }
 
-        private void OnButton16Click(object sender, EventArgs e)
+        private void OnResultClick(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(label1.Text))
             {
@@ -152,21 +78,21 @@ namespace Task_6._1
             }
         }
 
-        private void OnButton17Click(object sender, EventArgs e)
+        private void OnOpenBracketClick(object sender, EventArgs e)
         {
             bool isCorrect = true;
             label1.Text = calculator.AddOpenBracket(label1.Text, "(", ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
         }
 
-        private void OnButton18Click(object sender, EventArgs e)
+        private void OnCloseBracketClick(object sender, EventArgs e)
         {
             bool isCorrect = true;
             label1.Text = calculator.AddCloseBracket(label1.Text, ")", ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
         }
 
-        private void OnButton19Click(object sender, EventArgs e)
+        private void OnDeletionClick(object sender, EventArgs e)
         {
             label1.Text = calculator.CleanLine();
             label2.Text = string.Empty;
