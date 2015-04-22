@@ -444,8 +444,9 @@ namespace Task_7._1
         /// </summary>
         private class ListEnumerator : IEnumerator<T>
         {
-            private int iterator = -1; // перечислитель
+            private int iterator; // перечислитель
             private List<T> list;
+            private ListElement current;
 
             public ListEnumerator(List<T> list)
             {
@@ -457,7 +458,7 @@ namespace Task_7._1
             /// </summary>
             public object Current
             {
-                get { return list.FindElementByIndex(iterator); }
+                get { return current; }
             }
 
             /// <summary>
@@ -465,7 +466,7 @@ namespace Task_7._1
             /// </summary>
             T IEnumerator<T>.Current
             {
-                get { return list[iterator]; }
+                get { return current.Value; }
             }
 
             /// <summary>
@@ -473,7 +474,7 @@ namespace Task_7._1
             /// </summary>
             public void Reset()
             {
-                iterator = -1;
+                iterator = 0;
             }
 
             /// <summary>
@@ -481,8 +482,22 @@ namespace Task_7._1
             /// </summary>
             public bool MoveNext()
             {
-                iterator++;
-                return !Equals(list.FindElementByIndex(iterator), null);
+                if (iterator < list.Count)
+                {
+                    if (iterator == 0)
+                    {
+                        current = list.head;
+                    }
+                    else
+                    {
+                        current = current.Next;
+                    }
+
+                    iterator++;
+                    return true;
+                }
+
+                return false;
             }
 
             public void Dispose()
