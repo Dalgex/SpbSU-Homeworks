@@ -149,19 +149,18 @@ namespace Task_7._1
         /// и возвращает первое найденное вхождение в пределах всего списка List<typeparamref name="&lt;T&gt;"/>
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
         public T Find(Predicate<T> match)
         {
-            CheckArgumentNullException(match);
+            bool isFind = true;
+            T result = TryFind(match, ref isFind);
 
-            foreach (var value in this)
+            if (isFind)
             {
-                if (match(value))
-                {
-                    return value;
-                }
+                return result;
             }
 
-            return default(T); // Если не найден элемент, удовлетворяющий условиям предиката, возвращает значение по умолчанию для типа T
+            throw new Exception("Элемент не найден");
         }
 
         /// <summary>
