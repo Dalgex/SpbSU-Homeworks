@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task_4._1
 {
+    /// <summary>
+    /// Это исключение создается, когда попытка доступа к файлу, не существующему на диске, заканчивается неудачей
+    /// </summary>
     [Serializable]
     public class FileNotFoundException : Exception
     {
