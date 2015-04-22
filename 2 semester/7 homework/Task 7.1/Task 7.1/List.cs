@@ -424,6 +424,29 @@ namespace Task_7._1
         }
 
         /// <summary>
+        /// Возвращает первый элемент списка List<typeparamref name="&lt;T&gt;"/>, 
+        /// который удовлетворяет условиям указанного предиката. 
+        /// Также принимает логический параметр, куда сообщает успешность поиска
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        public T TryFind(Predicate<T> match, ref bool isFind)
+        {
+            CheckArgumentNullException(match);
+
+            foreach (var value in this)
+            {
+                if (match(value))
+                {
+                    isFind = true;
+                    return value;
+                }
+            }
+
+            isFind = false;
+            return default(T);
+        }
+
+        /// <summary>
         /// Возвращает перечислитель, выполняющий перебор элементов коллекции
         /// </summary>
         public IEnumerator<T> GetEnumerator()
