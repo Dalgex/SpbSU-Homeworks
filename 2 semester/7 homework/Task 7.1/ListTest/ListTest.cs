@@ -86,7 +86,7 @@ namespace ListTest
         }
 
         [TestMethod]
-        public void FindTest()
+        public void FindTest1()
         {
             InsertElementsTest();
             Assert.AreEqual(list.Find(x => x.Contains("th")), "weather");
@@ -96,6 +96,35 @@ namespace ListTest
             Assert.AreEqual(list.FindIndex(x => x.Contains("th")), 1);
             Assert.IsTrue(list.Exists(x => x.Length == 5));
             Assert.IsTrue(list.TrueForAll(x => x.Contains("e")));
+        }
+
+        [TestMethod]
+        public void FindTest2()
+        {
+            AddElementsTest();
+            bool isFind = true;
+            Assert.AreEqual(list.TryFind(x => x.Contains("oo"), ref isFind), "moon");
+            Assert.IsTrue(isFind);
+            Assert.AreEqual(list.TryFind(x => x.Length == 6, ref isFind), null);
+            Assert.IsFalse(isFind);
+        }
+
+        [TestMethod]
+        public void ForeachTest()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                list.Add(Convert.ToString(i));
+            }
+
+            string line = string.Empty;
+
+            foreach (var value in list)
+            {
+                line += value;
+            }
+
+            Assert.AreEqual(line, "01234");
         }
 
         [TestMethod]
@@ -161,9 +190,19 @@ namespace ListTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void FindException()
+        public void FindException1()
         {
             list.FindIndex(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void FindException2()
+        {
+            list.Add("order");
+            list.Add("supply");
+            list.Add("ship");
+            list.Find(x => x.Contains("a"));
         }
 
         [TestMethod]
