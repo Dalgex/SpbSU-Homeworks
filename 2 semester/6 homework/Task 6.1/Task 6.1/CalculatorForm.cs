@@ -16,6 +16,7 @@ namespace Task_6._1
     public partial class CalculatorForm : Form
     {
         private Calculator calculator;
+        private static bool isResultClick;
 
         public CalculatorForm()
         {
@@ -23,8 +24,21 @@ namespace Task_6._1
             calculator = new Calculator();
         }
 
+        /// <summary>
+        /// Проверка, была ли нажата кнопка "=". Если да, то очищает строку ввода
+        /// </summary>
+        private void CheckResultClick()
+        {
+            if (isResultClick)
+            {
+                label1.Text = string.Empty;
+                isResultClick = false;
+            }
+        }
+
         private void OnDigitClick(object sender, EventArgs e)
         {
+            CheckResultClick();
             var button = (Button)sender;
             bool isCorrect = true;
             label1.Text = calculator.AddNumber(label1.Text, button.Text, ref isCorrect);
@@ -33,6 +47,7 @@ namespace Task_6._1
 
         private void OnOperatorClick(object sender, EventArgs e)
         {
+            isResultClick = false;
             var button = (Button)sender;
             bool isCorrect = true;
             label1.Text = calculator.AddOperator(label1.Text, button.Text, ref isCorrect);
@@ -41,6 +56,7 @@ namespace Task_6._1
 
         private void OnFloatingPointClick(object sender, EventArgs e)
         {
+            CheckResultClick();
             bool isCorrect = true;
             label1.Text = calculator.AddFloatingPoint(label1.Text, ",", ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
@@ -68,18 +84,20 @@ namespace Task_6._1
 
             if (isValid)
             {
+                isResultClick = true;
                 label1.Text = Convert.ToString(calculator.TopValue());
                 label2.Text = string.Empty;
             }
             else
             {
-                label1.Text = string.Empty;
+                label1.Text = calculator.CleanLine();
                 label2.Text = "Деление на ноль";
             }
         }
 
         private void OnOpenBracketClick(object sender, EventArgs e)
         {
+            CheckResultClick();
             bool isCorrect = true;
             label1.Text = calculator.AddOpenBracket(label1.Text, "(", ref isCorrect);
             label2.Text = calculator.ReturnString(isCorrect);
@@ -94,6 +112,7 @@ namespace Task_6._1
 
         private void OnDeletionClick(object sender, EventArgs e)
         {
+            isResultClick = false;
             label1.Text = calculator.CleanLine();
             label2.Text = string.Empty;
         }
