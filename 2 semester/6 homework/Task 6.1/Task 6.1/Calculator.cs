@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Task_6._1
 {
     /// <summary>
-    /// Класс калькулятор
+    /// Класс калькулятор для выполнения арифметических расчетов
     /// </summary>
     public class Calculator
     {
@@ -21,7 +21,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ цифрой
         /// </summary>
-        private bool IsDigit(char symbol)
+        private static bool IsDigit(char symbol)
         {
             return (symbol >= '0') && (symbol <= '9');
         }
@@ -29,7 +29,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ арифметическим знаком
         /// </summary>
-        private bool IsOperator(char symbol)
+        private static bool IsOperator(char symbol)
         {
             return (symbol == '+') || (symbol == '-') || (symbol == '*') || (symbol == '/');
         }
@@ -37,7 +37,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ открывающей скобкой
         /// </summary>
-        private bool IsOpenBracket(char symbol)
+        private static bool IsOpenBracket(char symbol)
         {
             return symbol == '(';
         }
@@ -45,7 +45,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ закрывающей скобкой
         /// </summary>
-        private bool IsCloseBracket(char symbol)
+        private static bool IsCloseBracket(char symbol)
         {
             return symbol == ')';
         }
@@ -53,7 +53,7 @@ namespace Task_6._1
         /// <summary>
         /// Проверка, является ли данный символ минусом
         /// </summary>
-        private bool IsMinus(char symbol)
+        private static bool IsMinus(char symbol)
         {
             return symbol == '-';
         }
@@ -61,7 +61,7 @@ namespace Task_6._1
         /// <summary>
         /// Проверка, является ли данный символ плавающей запятой
         /// </summary>
-        private bool IsFloatingPoint(char symbol)
+        private static bool IsFloatingPoint(char symbol)
         {
             return symbol == ',';
         }
@@ -69,7 +69,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ круглой скобкой
         /// </summary>
-        private bool IsBracket(char symbol)
+        private static bool IsBracket(char symbol)
         {
             return symbol == '(' || symbol == ')';
         }
@@ -90,7 +90,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверка, является ли данный символ пробелом
         /// </summary>
-        private bool IsSpace(char symbol)
+        private static bool IsSpace(char symbol)
         {
             return symbol == ' ';
         }
@@ -98,7 +98,7 @@ namespace Task_6._1
         /// <summary>
         /// Проверка, является ли данный символ нулем
         /// </summary>
-        private bool IsZero(char symbol)
+        private static bool IsZero(char symbol)
         {
             return symbol == '0';
         }
@@ -308,7 +308,7 @@ namespace Task_6._1
         /// <summary>
         ///  Проверяем приоритет операторов
         /// </summary>
-        private int CheckPriority(char symbol)
+        private static int CheckPriority(char symbol)
         {
             switch (symbol)
             {
