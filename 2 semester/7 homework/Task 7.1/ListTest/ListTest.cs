@@ -128,6 +128,34 @@ namespace ListTest
         }
 
         [TestMethod]
+        public void IteratorTest()
+        {
+            var iterator = list.GetEnumerator();
+
+            for (int i = 5; i < 9; i++)
+            {
+                list.Add(Convert.ToString(i));
+            }
+
+            string line = string.Empty;
+
+            while (iterator.MoveNext())
+            {
+                line += iterator.Current;
+            }
+
+            Assert.AreEqual(line, "5678");
+            iterator.Reset();
+
+            while (iterator.MoveNext())
+            {
+                line += iterator.Current;
+            }
+
+            Assert.AreEqual(line, "56785678");
+        }
+
+        [TestMethod]
         public void ReverseTest()
         {
             list.Insert(0, "capital");
