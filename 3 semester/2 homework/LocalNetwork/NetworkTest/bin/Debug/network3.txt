@@ -1,0 +1,18 @@
+5
+1 0 0 1 1
+0 1 1 0 1
+0 1 1 0 0
+1 0 0 1 0
+1 1 0 0 1
+4
+Windows 100
+Linux 100
+OS/2 100
+MacOS 100
+0 - Windows
+1 - OS/2
+2 - Linux
+3 - Windows
+4 - MacOS
+2
+0 3

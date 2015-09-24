@@ -1,0 +1,19 @@
+﻿5 
+1 0 0 1 1
+0 1 1 0 0
+0 1 1 1 1
+1 0 1 1 0
+1 0 1 0 1
+5
+Windows 35
+Linux 25
+OS/2 45
+Unix 30
+MacOS 40
+0 - Windows
+1 - MacOS
+2 - Linux
+3 - OS/2
+4 - Unix
+2
+1 4
