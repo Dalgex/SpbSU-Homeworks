@@ -49,7 +49,7 @@ namespace Editor
             firstX = e.X;
             firstY = e.Y;
 
-            if (!button3.Enabled) // если была нажата конпка удаления
+            if (!buttonForRemoving.Enabled) // если была нажата конпка удаления
             {
                 foreach (var line in lines)
                 {
@@ -61,7 +61,7 @@ namespace Editor
                     }
                 }
             }
-            else if (!button6.Enabled) // если была нажата кнопка перемещения
+            else if (!buttonForMoving.Enabled) // если была нажата кнопка перемещения
             {
                 foreach (var line in lines)
                 {
@@ -75,7 +75,7 @@ namespace Editor
                     }
                 }
 
-                button6.Enabled = true;
+                buttonForMoving.Enabled = true;
             }
         }
 
@@ -117,7 +117,7 @@ namespace Editor
 
         private void PictureBoxPaint(object sender, PaintEventArgs e)
         {
-            if (!isLastWasUndo && !isLastWasRedo && button2.Enabled && button3.Enabled)
+            if (!isLastWasUndo && !isLastWasRedo && buttonForClearing.Enabled && buttonForRemoving.Enabled)
             {
                 if (wasChange) // значит линия сейчас изменяется, поэтому рисуем ее, используя те цвет и толщину, которые у нее были изначально
                 {
@@ -129,8 +129,8 @@ namespace Editor
                 }
             }
 
-            button3.Enabled = true;
-            button2.Enabled = true;
+            buttonForRemoving.Enabled = true;
+            buttonForClearing.Enabled = true;
             isLastWasUndo = false;
             isLastWasRedo = false;
 
@@ -160,7 +160,7 @@ namespace Editor
         {
             if (lines.Count != 0)
             {
-                button2.Enabled = false;
+                buttonForClearing.Enabled = false;
                 actions.RemoveAllLines(ref lines, history);
                 pictureBox.Invalidate();
             }
@@ -168,7 +168,7 @@ namespace Editor
 
         private void OnRemoveClick(object sender, EventArgs e)
         {
-            button3.Enabled = false;
+            buttonForRemoving.Enabled = false;
         }
 
         private void OnUndoClick(object sender, EventArgs e)
@@ -187,18 +187,18 @@ namespace Editor
 
         private void OnMoveClick(object sender, EventArgs e)
         {
-            button6.Enabled = false;
+            buttonForMoving.Enabled = false;
         }
 
         private void EditorKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.Z) // CTRL + Z
             {
-                button4.PerformClick(); // имитируем нажатие Undo
+                buttonForUndo.PerformClick(); // имитируем нажатие Undo
             }
             else if (e.Control && e.KeyCode == Keys.Y) // CTRL + Y
             {
-                button5.PerformClick(); // имитируем нажатие Redo
+                buttonForRedo.PerformClick(); // имитируем нажатие Redo
             }
         }
 
