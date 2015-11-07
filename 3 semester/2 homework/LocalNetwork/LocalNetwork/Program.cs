@@ -11,7 +11,8 @@ namespace Network
         static void Main(string[] args)
         {
             LocalNetwork netWork = new LocalNetwork();
-            netWork.ReadFromFile("NetWork.txt");
+            netWork.ReadFromFile("network.txt");
+            Console.WriteLine("Состояние сети:");
             netWork.Display();
         }
     }

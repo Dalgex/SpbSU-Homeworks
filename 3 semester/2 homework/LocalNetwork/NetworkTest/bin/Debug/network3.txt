@@ -7,12 +7,12 @@
 4
 Windows 100
 Linux 100
-OS/2 100
+Unix 100
 MacOS 100
 0 - Windows
-1 - OS/2
+1 - Unix
 2 - Linux
-3 - Windows
+3 - Unix
 4 - MacOS
 2
 0 3

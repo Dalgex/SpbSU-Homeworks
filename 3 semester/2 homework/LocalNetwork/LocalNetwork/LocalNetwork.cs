@@ -14,13 +14,8 @@ namespace Network
     {
         private Computer[] comp;
         private OperatingSystem[] system;
-        private Random rand;
+        private Random rand = new Random();
         private bool[,] matrix;
-
-        public LocalNetwork()
-        {
-            rand = new Random();
-        }
 
         /// <summary>
         /// Считывает данные из файла
@@ -54,7 +49,7 @@ namespace Network
             for (int i = 0; i < numberOfSystems; i++)
             {
                 string[] str = sr.ReadLine().Split(' ');  // считываем название ОС и вероятность заражения
-                system[i] = new OperatingSystem(str[0], Convert.ToInt32(str[1]));
+                system[i] = NewSystem(str[0], Convert.ToInt32(str[1]));
             }
 
             comp = new Computer[numberOfComps];
@@ -77,9 +72,25 @@ namespace Network
         }
 
         /// <summary>
+        /// Возвращает новую операционную систему
+        /// </summary>
+        private OperatingSystem NewSystem(string name, int infectionProbability)
+        {
+            switch (name)
+            {
+                case "Linux": return new Linux(infectionProbability);
+                case "Windows": return new Windows(infectionProbability);
+                case "Unix": return new Unix(infectionProbability);
+                case "MacOS": return new MacOS(infectionProbability);
+            }
+
+            throw new InvalidOperationException("Неправильные данные");
+        }
+
+        /// <summary>
         /// Находит и возвращает операционную систему с именем name
         /// </summary>
-        private OperatingSystem NameOfSystem(string name)
+        public OperatingSystem NameOfSystem(string name)
         {
             foreach (var temp in system)
             {
@@ -93,48 +104,11 @@ namespace Network
         }
 
         /// <summary>
-        /// Предоставляет данные о компьютере
-        /// </summary>
-        private class Computer
-        {
-            public Computer(OperatingSystem systemType)
-            {
-                SystemType = systemType;
-            }
-
-            public OperatingSystem SystemType { get; private set; }
-            public bool IsInfected { get; set; }
-        }
-
-        /// <summary>
-        /// Класс содержит свойства операционной системы
-        /// </summary>
-        private class OperatingSystem
-        {
-            public OperatingSystem(string systemName, int probability)
-            {
-                SystemName = systemName;
-                ProbabilityOfInfection = probability;
-            }
-
-            public string SystemName { get; private set; }
-            public int ProbabilityOfInfection { get; private set; }
-        }
-
-        /// <summary>
         /// Проверяет, соединены ли компьютеры с номерами i и j
         /// </summary>
         private bool IsConnected(int i, int j)
         {
             return matrix[i, j];
-        }
-
-        /// <summary>
-        /// Проверяет, заразился ли компьютер
-        /// </summary>
-        private bool HasBecomeInfected(int number)
-        {
-            return rand.Next(100) <= comp[number].SystemType.ProbabilityOfInfection;
         }
 
         /// <summary>
@@ -144,15 +118,16 @@ namespace Network
         {
             for (int i = 0; i < comp.Length; i++)
             {
-                if (comp[i].IsInfected)
+                if (comp[i].IsInfected && !comp[i].IsJustInfected)
                 {
                     for (int j = 0; j < comp.Length; j++)
                     {
                         if (IsConnected(i, j))
                         {
-                            if (!comp[j].IsInfected && HasBecomeInfected(j))
+                            if (!comp[j].IsInfected && comp[j].HasBecomeInfected(rand))
                             {
                                 comp[j].IsInfected = true;
+                                comp[j].IsJustInfected = true;
                             }
                         }
                     }
@@ -173,7 +148,16 @@ namespace Network
                 {
                     if (comp[i].IsInfected)
                     {
-                        Console.WriteLine("Компьютер {0} заражен", i);
+                        if (comp[i].IsJustInfected)
+                        {
+                            Console.WriteLine("Компьютер {0} только что заразился", i);
+                            comp[i].IsJustInfected = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Компьютер {0} заражен", i);
+                        }
+
                         count++;
                     }
                 }
@@ -200,6 +184,11 @@ namespace Network
             {
                 if (comp[i].IsInfected)
                 {
+                    if (comp[i].IsJustInfected)
+                    {
+                        comp[i].IsJustInfected = false;
+                    }
+
                     result += Convert.ToString(i) + " ";
                 }
             }
