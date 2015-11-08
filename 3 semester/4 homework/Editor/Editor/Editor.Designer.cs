@@ -237,7 +237,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pictureBox);
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(420, 300);
+            this.MinimumSize = new System.Drawing.Size(501, 311);
             this.Name = "Editor";
             this.Text = "Editor";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditorKeyDown);
