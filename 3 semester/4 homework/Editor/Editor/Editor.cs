@@ -147,7 +147,7 @@ namespace Editor
         {
             DialogResult colorDialog = colorDialog1.ShowDialog();
 
-            if (colorDialog == System.Windows.Forms.DialogResult.OK)
+            if (colorDialog == DialogResult.OK)
             {
                 currentColor = colorDialog1.Color;
             }
