@@ -41,17 +41,17 @@ namespace Editor
         /// Удаляет линию, добавляет это действие в историю и изменяет определенным образом входные координаты, 
         /// которые необходимы для перемещения изначальной линии
         /// </summary>
-        public void PrepareLineToMove(List<Line> lines, History history, ref int firstX, ref int firstY)
+        public void PrepareLineToMove(List<Line> lines, History history, ref int x, ref int y)
         {
-            if (GeometricCalculations.IsPointInPoint(FirstPoint, firstX, firstY))
+            if (GeometricCalculations.IsPointInPoint(FirstPoint, x, y))
             {
-                firstX = SecondPoint.X; // запоминаем координаты одного из концов линии, другой конец которой будем перемещать
-                firstY = SecondPoint.Y;
+                x = SecondPoint.X; // запоминаем координаты одного из концов линии, другой конец которой будем перемещать
+                y = SecondPoint.Y;
             }
             else
             {
-                firstX = FirstPoint.X;
-                firstY = FirstPoint.Y;
+                x = FirstPoint.X;
+                y = FirstPoint.Y;
             }
 
             lines.Remove(this);

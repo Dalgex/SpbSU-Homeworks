@@ -16,7 +16,7 @@ namespace Editor
         private History history = new History(); // создаем историю, где будем хранить операции (команды)
         private ActionsOnLines actions = new ActionsOnLines(); // создаем объект действия над линиями, который будет отвечать за удаление всех линий
 
-        private Color currentColor = Color.Black; // задаем изначальный цвет линий
+        private Color color = Color.Black; // задаем изначальный цвет линий
         private int width = 2; // задаем изначальную толщину линий
 
         private Color colorOfChangeLine; // представляет цвет линии, которую перемещаем
@@ -25,14 +25,14 @@ namespace Editor
 
         private bool isPressed; // была ли нажата кнопка мыши
 
-        private int firstX; // первая координата по X
-        private int firstY; // первая координата по Y
+        private int beginX; // координата начала линии по X
+        private int beginY; // координата начала линии по Y
 
-        private int lastX; // координата конца линии по X
-        private int lastY; // координата конца линии по Y
+        private int endX; // координата конца линии по X
+        private int endY; // координата конца линии по Y
 
-        private int isSameLastX; // эти переменные нужны для того, чтобы не отображать точки, т.е. не считать клик мышки за новую линию
-        private int isSameLastY;
+        private int lastX; // эти переменные нужны для того, чтобы не отображать точки, т.е. не считать клик мышки за новую линию
+        private int lastY;
 
         private bool isLastWasRedo; // последняя операция была Redo?
         private bool isLastWasUndo; // последняя операция была Undo?
@@ -46,14 +46,14 @@ namespace Editor
         private void PictureBoxMouseDown(object sender, MouseEventArgs e)
         {
             isPressed = true;
-            firstX = e.X;
-            firstY = e.Y;
+            beginX = e.X;
+            beginY = e.Y;
 
             if (!buttonForRemoving.Enabled) // если была нажата конпка удаления
             {
                 foreach (var line in lines)
                 {
-                    if (GeometricCalculations.IsPointOnLine(line.FirstPoint, line.SecondPoint, firstX, firstY))
+                    if (GeometricCalculations.IsPointOnLine(line.FirstPoint, line.SecondPoint, beginX, beginY))
                     {
                         line.RemoveLine(lines, history);
                         pictureBox.Invalidate();
@@ -65,9 +65,9 @@ namespace Editor
             {
                 foreach (var line in lines)
                 {
-                    if (GeometricCalculations.IsPointInPoint(line.FirstPoint, firstX, firstY) || GeometricCalculations.IsPointInPoint(line.SecondPoint, firstX, firstY))
+                    if (GeometricCalculations.IsPointInPoint(line.FirstPoint, beginX, beginY) || GeometricCalculations.IsPointInPoint(line.SecondPoint, beginX, beginY))
                     {
-                        line.PrepareLineToMove(lines, history, ref firstX, ref firstY);
+                        line.PrepareLineToMove(lines, history, ref beginX, ref beginY);
                         colorOfChangeLine = line.Pen.Color; // запоминаем цвет перемещаемой линии
                         widthOfChangeLine = (int)line.Pen.Width; // запоминаем толщину перемещаемой линии
                         wasChange = true; // линия изменяется
@@ -83,14 +83,14 @@ namespace Editor
         {
             if (isPressed) // если была нажата кнопка мыши, значит мы рисуем линию, поэтому запоминаем ее последние координаты
             {
-                lastX = e.X;
-                lastY = e.Y;
+                endX = e.X;
+                endY = e.Y;
                 pictureBox.Invalidate();
             }
             else
             {
-                isSameLastX = lastX;
-                isSameLastY = lastY;
+                lastX = endX;
+                lastY = endY;
             }
         }
 
@@ -98,16 +98,16 @@ namespace Editor
         {
             isPressed = false;
 
-            if (isSameLastX != lastX || isSameLastY != lastY) // если линия не является точкой
+            if (lastX != endX || lastY != endY) // если линия не является точкой
             {
                 if (wasChange) // если линия была изменена, то добавляем линию с теми же параметрами, которые у нее были изначально
                 {
-                    lines.Add(new Line(new Point(firstX, firstY), new Point(lastX, lastY), new Pen(colorOfChangeLine, widthOfChangeLine)));
+                    lines.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(colorOfChangeLine, widthOfChangeLine)));
                     wasChange = false;
                 }
                 else
                 {
-                    lines.Add(new Line(new Point(firstX, firstY), new Point(lastX, lastY), new Pen(currentColor, width)));
+                    lines.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(color, width)));
                 }
 
                 history.AddHistory(new Command(lines[lines.Count - 1], 1), false);
@@ -121,11 +121,11 @@ namespace Editor
             {
                 if (wasChange) // значит линия сейчас изменяется, поэтому рисуем ее, используя те цвет и толщину, которые у нее были изначально
                 {
-                    e.Graphics.DrawLine(new Pen(colorOfChangeLine, widthOfChangeLine), new Point(firstX, firstY), new Point(lastX, lastY));
+                    e.Graphics.DrawLine(new Pen(colorOfChangeLine, widthOfChangeLine), new Point(beginX, beginY), new Point(endX, endY));
                 }
                 else
                 {
-                    e.Graphics.DrawLine(new Pen(currentColor, width), new Point(firstX, firstY), new Point(lastX, lastY));
+                    e.Graphics.DrawLine(new Pen(color, width), new Point(beginX, beginY), new Point(endX, endY));
                 }
             }
 
@@ -149,7 +149,7 @@ namespace Editor
 
             if (colorDialog == DialogResult.OK)
             {
-                currentColor = colorDialog1.Color;
+                color = colorDialog1.Color;
             }
         }
 
