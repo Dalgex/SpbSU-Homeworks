@@ -14,12 +14,12 @@ namespace Editor
         /// <summary>
         /// Представляет номер команды: 1 - произошло добавление, 2 - удаление
         /// </summary>
-        public int NumberOfCommand { get; set; }
+        public int NumberOfCommand { get; private set; }
 
         /// <summary>
         /// Объект-линия
         /// </summary>
-        public Line Line { get; set; }
+        public Line Line { get; private set; }
 
         /// <summary>
         /// Создает команду вида: линия и что с ней сделали (добавили/удалили)

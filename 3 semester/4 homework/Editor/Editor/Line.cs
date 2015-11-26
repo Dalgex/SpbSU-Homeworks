@@ -15,17 +15,17 @@ namespace Editor
         /// <summary>
         /// Представляет координаты первой точки
         /// </summary>
-        public Point FirstPoint { get; set; }
+        public Point FirstPoint { get; private set; }
 
         /// <summary>
         /// Представляет координаты второй точки
         /// </summary>
-        public Point SecondPoint { get; set; }
+        public Point SecondPoint { get; private set; }
 
         /// <summary>
         /// Определяет цвет и толщину линии
         /// </summary>
-        public Pen Pen { get; set; }
+        public Pen Pen { get; private set; }
 
         /// <summary>
         /// Создает новую линию
