@@ -54,11 +54,13 @@
       <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="GeometricCalculations.cs" />
+    <Compile Include="PaintingInAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="History.cs" />
     <Compile Include="Shape.cs" />
+    <Compile Include="ShapeBuilder.cs" />
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
