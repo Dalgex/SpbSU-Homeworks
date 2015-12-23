@@ -36,7 +36,7 @@ namespace Editor
         private bool CanRedo { get { return redo.Count > 0; } }
 
         /// <summary>
-        /// Добавляет в историю команду и логический параметр, показывающий, идет добавление целой команды или ее части
+        /// Добавляет в историю команду и логический параметр, показывающий, завершилась команда или нет
         /// </summary>
         public void AddHistory(Command command, bool isCommandOver)
         {

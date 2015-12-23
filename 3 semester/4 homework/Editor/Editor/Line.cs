@@ -24,9 +24,6 @@ namespace Editor
         /// </summary>
         public Point SecondPoint { get; set; }
 
-        /// <summary>
-        /// Создает новую линию
-        /// </summary>
         public Line(Point firstPoint, Point secondPoint, Pen pen) : base(pen)
         {
             FirstPoint = firstPoint;
