@@ -9,16 +9,22 @@ namespace Network
     /// <summary>
     /// Предоставляет данные об операционной системе
     /// </summary>
-    public abstract class OperatingSystem
+    public class OperatingSystem
     {
+        public OperatingSystem(string systemName, int infectionProbability)
+        {
+            SystemName = systemName;
+            ProbabilityOfInfection = infectionProbability;
+        }
+
         /// <summary>
         /// Показывает название операционной системы
         /// </summary>
-        public virtual string SystemName { get; protected set; }
+        public string SystemName { get; private set; }
 
         /// <summary>
         /// Показывает вероятность заражения
         /// </summary>
-        public virtual int ProbabilityOfInfection { get; protected set; }
+        public int ProbabilityOfInfection { get; private set; }
     }
 }

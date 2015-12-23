@@ -9,24 +9,27 @@ namespace NetworkTest
     public class NetworkTest
     {
         private LocalNetwork netWork;
+        private Computer[] comp;
+        private Network.OperatingSystem[] system;
+        private bool[,] matrix;
 
         [TestMethod]
         public void Test1()
         {
-            netWork = new LocalNetwork();
-            netWork.ReadFromFile("network1.txt");
+            ReadingFile.ReadFromFile("network1.txt", out comp, out system, out matrix);
+            netWork = new LocalNetwork(comp, system, matrix);
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "1 ");
             netWork.Move();
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "0 1 ");
             netWork.Move();
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "0 1 2 ");
         }
-
+        
         [TestMethod]
         public void Test2()
         {
-            netWork = new LocalNetwork();
-            netWork.ReadFromFile("network2.txt");
+            ReadingFile.ReadFromFile("network2.txt", out comp, out system, out matrix);
+            netWork = new LocalNetwork(comp, system, matrix);
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "1 3 ");
             netWork.Move();
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "0 1 2 3 ");
@@ -35,8 +38,8 @@ namespace NetworkTest
         [TestMethod]
         public void Test3()
         {
-            netWork = new LocalNetwork();
-            netWork.ReadFromFile("network3.txt");
+            ReadingFile.ReadFromFile("network3.txt", out comp, out system, out matrix);
+            netWork = new LocalNetwork(comp, system, matrix);
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "0 3 ");
             netWork.Move();
             Assert.AreEqual(netWork.PrintNumberInfectedComps(), "0 3 4 ");
@@ -50,8 +53,7 @@ namespace NetworkTest
         [ExpectedException(typeof(FileNotFoundException))]
         public void ExistFile()
         {
-            netWork = new LocalNetwork();
-            netWork.ReadFromFile("file.txt");
+            ReadingFile.ReadFromFile("file.txt", out comp, out system, out matrix);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Network
     /// <summary>
     /// Предоставляет данные о компьютере
     /// </summary>
-    class Computer
+    public class Computer
     {
         public Computer(OperatingSystem systemType)
         {

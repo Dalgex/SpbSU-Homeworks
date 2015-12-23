@@ -10,8 +10,11 @@ namespace Network
     {
         static void Main(string[] args)
         {
-            LocalNetwork netWork = new LocalNetwork();
-            netWork.ReadFromFile("network.txt");
+            Computer[] comp;
+            Network.OperatingSystem[] system;
+            bool[,] matrix;
+            ReadingFile.ReadFromFile("network.txt", out comp, out system, out matrix);
+            var netWork = new LocalNetwork(comp, system, matrix);
             Console.WriteLine("Состояние сети:");
             netWork.Display();
         }

@@ -13,94 +13,15 @@ namespace Network
     public class LocalNetwork
     {
         private Computer[] comp;
-        private OperatingSystem[] system;
         private Random rand = new Random();
+        private OperatingSystem[] system;
         private bool[,] matrix;
 
-        /// <summary>
-        /// Считывает данные из файла
-        /// </summary>
-        public void ReadFromFile(string fileName)
+        public LocalNetwork(Computer[] comp, OperatingSystem[] system, bool[,] matrix)
         {
-            FileInfo file = new FileInfo(fileName);
-
-            if (!file.Exists)
-            {
-                throw new FileNotFoundException("Файл не найден");
-            }
-
-            StreamReader sr = file.OpenText();
-            int numberOfComps = Convert.ToInt32(sr.ReadLine()); // считываем кол-во компьютеров
-            matrix = new bool[numberOfComps, numberOfComps];
-
-            for (int i = 0; i < numberOfComps; i++) // составляем матрицу смежности
-            {
-                string[] str = sr.ReadLine().Split(' ');
-
-                for (int j = 0; j < str.Length; j++)
-                {
-                    matrix[i, j] = Convert.ToBoolean(Convert.ToInt32(str[j]));
-                }
-            }
-
-            int numberOfSystems = Convert.ToInt32(sr.ReadLine()); // считываем кол-во операционных систем
-            system = new OperatingSystem[numberOfSystems];
-
-            for (int i = 0; i < numberOfSystems; i++)
-            {
-                string[] str = sr.ReadLine().Split(' ');  // считываем название ОС и вероятность заражения
-                system[i] = NewSystem(str[0], Convert.ToInt32(str[1]));
-            }
-
-            comp = new Computer[numberOfComps];
-
-            for (int i = 0; i < numberOfComps; i++)
-            {
-                string[] str = sr.ReadLine().Split(' '); // считываем номер компьютера и тип ОС, которая на нем стоит
-                comp[i] = new Computer(NameOfSystem(str[2]));
-            }
-
-            int numberOfInfectedComps = Convert.ToInt32(sr.ReadLine()); // считываем кол-во зараженных машин
-            string[] temp = sr.ReadLine().Split(' '); // считываем номера зараженных компьютеров
-
-            for (int i = 0; i < numberOfInfectedComps; i++)
-            {
-                comp[Convert.ToInt32(temp[i])].IsInfected = true;
-            }
-
-            sr.Close();
-        }
-
-        /// <summary>
-        /// Возвращает новую операционную систему
-        /// </summary>
-        private OperatingSystem NewSystem(string name, int infectionProbability)
-        {
-            switch (name)
-            {
-                case "Linux": return new Linux(infectionProbability);
-                case "Windows": return new Windows(infectionProbability);
-                case "Unix": return new Unix(infectionProbability);
-                case "MacOS": return new MacOS(infectionProbability);
-            }
-
-            throw new InvalidOperationException("Неправильные данные");
-        }
-
-        /// <summary>
-        /// Находит и возвращает операционную систему с именем name
-        /// </summary>
-        public OperatingSystem NameOfSystem(string name)
-        {
-            foreach (var temp in system)
-            {
-                if (temp.SystemName == name)
-                {
-                    return temp;
-                }
-            }
-
-            return null;
+            this.comp = comp;
+            this.system = system;
+            this.matrix = matrix;
         }
 
         /// <summary>
