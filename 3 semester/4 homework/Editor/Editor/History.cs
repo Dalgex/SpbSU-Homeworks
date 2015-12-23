@@ -76,7 +76,7 @@ namespace Editor
         {
             if (CanRedo)
             {
-                redo.Pop(); // удаляем контрольную точку
+                redo.Pop();
 
                 while (redo.Count > 0 && redo.Peek() != null)
                 {
@@ -84,7 +84,7 @@ namespace Editor
                     undo.Peek().Execute(shapes);
                 }
 
-                undo.Push(null); // добавляем контрольную точку
+                undo.Push(null);
             }
         }
 

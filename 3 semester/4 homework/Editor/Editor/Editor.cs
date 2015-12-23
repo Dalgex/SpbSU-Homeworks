@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Editor
 {
+    /// <summary>
+    /// Предоставляет пользовательский интерфейс
+    /// </summary>
     public partial class Editor : Form
     {
         private List<Shape> shapes = new List<Shape>();
@@ -78,9 +81,10 @@ namespace Editor
             }
         }
 
-        private void OnRemoveClick(object sender, EventArgs e)
+        private void OnCommandClick(object sender, EventArgs e)
         {
-            buttonForRemoving.Enabled = false;
+            var button = (Button)sender;
+            button.Enabled = false;
         }
 
         private void OnUndoClick(object sender, EventArgs e)
@@ -93,11 +97,6 @@ namespace Editor
         {
             history.Redo(shapes);
             pictureBox.Invalidate();
-        }
-
-        private void OnMoveClick(object sender, EventArgs e)
-        {
-            buttonForMoving.Enabled = false;
         }
 
         private void EditorKeyDown(object sender, KeyEventArgs e)

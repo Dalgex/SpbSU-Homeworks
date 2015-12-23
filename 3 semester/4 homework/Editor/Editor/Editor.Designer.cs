@@ -103,7 +103,7 @@
             this.buttonForRemoving.Text = "Удалить";
             this.toolTip1.SetToolTip(this.buttonForRemoving, "Удалить линию");
             this.buttonForRemoving.UseVisualStyleBackColor = true;
-            this.buttonForRemoving.Click += new System.EventHandler(this.OnRemoveClick);
+            this.buttonForRemoving.Click += new System.EventHandler(this.OnCommandClick);
             // 
             // buttonForUndo
             // 
@@ -142,7 +142,7 @@
             this.buttonForMoving.Text = "Переместить";
             this.toolTip1.SetToolTip(this.buttonForMoving, "Переместить любой из концов соответствующей линии");
             this.buttonForMoving.UseVisualStyleBackColor = true;
-            this.buttonForMoving.Click += new System.EventHandler(this.OnMoveClick);
+            this.buttonForMoving.Click += new System.EventHandler(this.OnCommandClick);
             // 
             // buttonForWidth
             // 
