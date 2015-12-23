@@ -12,7 +12,7 @@ namespace Editor
 {
     public partial class Editor : Form
     {
-        private List<Line> lines = new List<Line>(); // создаем список, в котором будем хранить нарисованные линии
+        private List<Shape> shapes = new List<Shape>(); // создаем список, в котором будем хранить нарисованные линии
         private History history = new History(); // создаем историю, где будем хранить операции (команды)
         private ActionsOnLines actions = new ActionsOnLines(); // создаем объект действия над линиями, который будет отвечать за удаление всех линий
 
@@ -51,11 +51,11 @@ namespace Editor
 
             if (!buttonForRemoving.Enabled) // если была нажата конпка удаления
             {
-                foreach (var line in lines)
+                foreach (Line line in shapes)
                 {
                     if (GeometricCalculations.IsPointOnLine(line.FirstPoint, line.SecondPoint, beginX, beginY))
                     {
-                        line.RemoveLine(lines, history);
+                        line.RemoveLine(shapes, history);
                         pictureBox.Invalidate();
                         break;
                     }
@@ -63,11 +63,11 @@ namespace Editor
             }
             else if (!buttonForMoving.Enabled) // если была нажата кнопка перемещения
             {
-                foreach (var line in lines)
+                foreach (Line line in shapes)
                 {
                     if (GeometricCalculations.IsPointInPoint(line.FirstPoint, beginX, beginY) || GeometricCalculations.IsPointInPoint(line.SecondPoint, beginX, beginY))
                     {
-                        line.PrepareLineToMove(lines, history, ref beginX, ref beginY);
+                        line.PrepareLineToMove(shapes, history, ref beginX, ref beginY);
                         colorOfChangeLine = line.Pen.Color; // запоминаем цвет перемещаемой линии
                         widthOfChangeLine = (int)line.Pen.Width; // запоминаем толщину перемещаемой линии
                         wasChange = true; // линия изменяется
@@ -102,15 +102,15 @@ namespace Editor
             {
                 if (wasChange) // если линия была изменена, то добавляем линию с теми же параметрами, которые у нее были изначально
                 {
-                    lines.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(colorOfChangeLine, widthOfChangeLine)));
+                    shapes.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(colorOfChangeLine, widthOfChangeLine)));
                     wasChange = false;
                 }
                 else
                 {
-                    lines.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(color, width)));
+                    shapes.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(color, width)));
                 }
 
-                history.AddHistory(new Command(lines[lines.Count - 1], 1), false);
+                history.AddHistory(new CommandShape(shapes[shapes.Count - 1], "Добавление"), false);
                 history.ClearRedoHistory(); // была совершена "свободная команда", поэтому очищаем стек Redo
             }
         }
@@ -134,7 +134,7 @@ namespace Editor
             isLastWasUndo = false;
             isLastWasRedo = false;
 
-            foreach (var line in lines) // изображаем все линии
+            foreach (Line line in shapes) // изображаем все линии
             {
                 e.Graphics.DrawLine(line.Pen, line.FirstPoint, line.SecondPoint);
             }
@@ -158,10 +158,10 @@ namespace Editor
         /// </summary>
         private void OnClearClick(object sender, EventArgs e)
         {
-            if (lines.Count != 0)
+            if (shapes.Count != 0)
             {
                 buttonForClearing.Enabled = false;
-                actions.RemoveAllLines(ref lines, history);
+                actions.RemoveAllLines(ref shapes, history);
                 pictureBox.Invalidate();
             }
         }
@@ -173,14 +173,14 @@ namespace Editor
 
         private void OnUndoClick(object sender, EventArgs e)
         {
-            lines = history.Undo(lines);
+            history.Undo(shapes);
             isLastWasUndo = true;
             pictureBox.Invalidate();
         }
 
         private void OnRedoClick(object sender, EventArgs e)
         {
-            lines = history.Redo(lines);
+            history.Redo(shapes);
             isLastWasRedo = true;
             pictureBox.Invalidate();
         }

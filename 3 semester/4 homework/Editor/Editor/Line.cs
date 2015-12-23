@@ -41,7 +41,7 @@ namespace Editor
         /// <summary>
         /// Запоминает координаты одного из концов линии, другой конец которой будет перемещаться и удаляет линию
         /// </summary>
-        public void PrepareLineToMove(List<Line> lines, History history, ref int beginX, ref int beginY)
+        public void PrepareLineToMove(List<Shape> shapes, History history, ref int beginX, ref int beginY)
         {
             if (GeometricCalculations.IsPointInPoint(FirstPoint, beginX, beginY))
             {
@@ -54,17 +54,17 @@ namespace Editor
                 beginY = FirstPoint.Y;
             }
 
-            lines.Remove(this);
-            history.AddHistory(new Command(this, 2), true);
+            shapes.Remove(this);
+            history.AddHistory(new CommandShape(this, "Удаление"), true);
         }
 
         /// <summary>
         /// Удаляет данную линию из списка линий и добавляет в историю изменений удаление
         /// </summary>
-        public void RemoveLine(List<Line> lines, History history)
+        public void RemoveLine(List<Shape> shapes, History history)
         {
-            lines.Remove(this);
-            history.AddHistory(new Command(this, 2), false);
+            shapes.Remove(this);
+            history.AddHistory(new CommandShape(this, "Удаление"), false);
         }
     }
 }

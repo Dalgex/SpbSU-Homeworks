@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ActionsOnLines.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="CommandShape.cs" />
     <Compile Include="Editor.cs">
       <SubType>Form</SubType>
     </Compile>

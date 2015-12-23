@@ -20,17 +20,17 @@ namespace Editor
         /// <summary>
         /// Удаляет все линии и добавляет соответствующие операции в историю изменений
         /// </summary>
-        public void RemoveAllLines(ref List<Line> lines, History history)
+        public void RemoveAllLines(ref List<Shape> shapes, History history)
         {
             // Добавляем в историю удаление каждой линии и при этом указываем, что это является частью одной команды
-            for (int i = 0; i < lines.Count - 1; i++)
+            for (int i = 0; i < shapes.Count - 1; i++)
             {
-                history.AddHistory(new Command(lines[i], 2), true);
+                history.AddHistory(new CommandShape(shapes[i], "Удаление"), true);
             }
 
             // Добавляем в историю последнюю линию и показываем, что на этом целостная команда завершается
-            history.AddHistory(new Command(lines[lines.Count - 1], 2), false);
-            lines = new List<Line>(); // удаляем все линии
+            history.AddHistory(new CommandShape(shapes[shapes.Count - 1], "Удаление"), false);
+            shapes = new List<Shape>(); // удаляем все линии
             history.ClearRedoHistory(); // при выполнении «свободной» операции стек Redo должен очищаться
         }
     }

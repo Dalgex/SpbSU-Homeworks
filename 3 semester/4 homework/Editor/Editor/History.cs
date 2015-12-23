@@ -51,7 +51,7 @@ namespace Editor
         /// <summary>
         /// Отменяет последнюю операцию
         /// </summary>
-        public List<Line> Undo(List<Line> lines)
+        public void Undo(List<Shape> shapes)
         {
             if (CanUndo)
             {
@@ -59,28 +59,18 @@ namespace Editor
 
                 while (undo.Count > 0 && undo.Peek() != null)
                 {
-                    redo.Push(undo.Pop()); // перекладываем команду с вершины стека Undo в стек Redo
-
-                    if (redo.Peek().ReverseExecute() == 1) // выполняем команду, обратную только что переложенной
-                    {
-                        lines.Add(redo.Peek().Line);
-                    }
-                    else // значит до этого было добавление, поэтому удаляем
-                    {
-                        lines.Remove(redo.Peek().Line);
-                    }
+                    redo.Push(undo.Pop());
+                    redo.Peek().UnExecute(shapes);
                 }
 
                 redo.Push(null); // добавляем контрольную точку
             }
-
-            return lines;
         }
 
         /// <summary>
         /// Повторяет последнее действие, которое было отменено
         /// </summary>
-        public List<Line> Redo(List<Line> lines)
+        public void Redo(List<Shape> shapes)
         {
             if (CanRedo)
             {
@@ -88,22 +78,12 @@ namespace Editor
 
                 while (redo.Count > 0 && redo.Peek() != null)
                 {
-                    undo.Push(redo.Pop()); // перекладываем команду обратно в стек Undo, а затем исполняем ее
-
-                    if (undo.Peek().NumberOfCommand == 1) // в Redo обращать команду уже не надо, поэтому просто смотрим, какая операция была последней
-                    {
-                        lines.Add(undo.Peek().Line);
-                    }
-                    else
-                    {
-                        lines.Remove(undo.Peek().Line);
-                    }
+                    undo.Push(redo.Pop());
+                    undo.Peek().Execute(shapes);
                 }
 
                 undo.Push(null); // добавляем контрольную точку
             }
-
-            return lines;
         }
 
         /// <summary>

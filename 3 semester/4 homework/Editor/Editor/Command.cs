@@ -7,40 +7,18 @@ using System.Threading.Tasks;
 namespace Editor
 {
     /// <summary>
-    /// Представляет команду (добавление, удаление)
+    /// Объявляет интерфейс для отмены и повторения действий пользователя
     /// </summary>
-    public class Command
+    public abstract class Command
     {
         /// <summary>
-        /// Представляет номер команды: 1 - произошло добавление, 2 - удаление
+        /// Выполняет команду
         /// </summary>
-        public int NumberOfCommand { get; private set; }
+        public abstract void Execute(List<Shape> shapes);
 
         /// <summary>
-        /// Объект-линия
+        /// Отменяет команду
         /// </summary>
-        public Line Line { get; private set; }
-
-        /// <summary>
-        /// Создает команду вида: линия и что с ней сделали (добавили/удалили)
-        /// </summary>
-        public Command(Line line, int numberOfCommand)
-        {
-            NumberOfCommand = numberOfCommand;
-            Line = line;
-        }
-
-        /// <summary>
-        /// Заменяет команду на противоположную: если было удаление, то теперь считается, что это добавление, и наоборот
-        /// </summary>
-        public int ReverseExecute()
-        {
-            if (NumberOfCommand == 1)
-            {
-                return 2;
-            }
-
-            return 1;
-        }
+        public abstract void UnExecute(List<Shape> shapes);
     }
 }
