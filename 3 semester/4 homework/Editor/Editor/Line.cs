@@ -10,48 +10,48 @@ namespace Editor
     /// <summary>
     /// Представляет линию с указанными координатами, цветом и толщиной
     /// </summary>
-    public class Line
+    public class Line : Shape
     {
-        /// <summary>
-        /// Представляет координаты первой точки
-        /// </summary>
-        public Point FirstPoint { get; private set; }
+        public override Pen Pen { get; set; }
 
         /// <summary>
-        /// Представляет координаты второй точки
+        /// Получает или задает координаты начальной точки линии
         /// </summary>
-        public Point SecondPoint { get; private set; }
+        public Point FirstPoint { get; set; }
 
         /// <summary>
-        /// Определяет цвет и толщину линии
+        /// Получает или задает координаты конечной точки линии
         /// </summary>
-        public Pen Pen { get; private set; }
+        public Point SecondPoint { get; set; }
 
         /// <summary>
         /// Создает новую линию
         /// </summary>
-        public Line(Point firstPoint, Point secondPoint, Pen pen)
+        public Line(Point firstPoint, Point secondPoint, Pen pen) : base(pen)
         {
             FirstPoint = firstPoint;
             SecondPoint = secondPoint;
-            Pen = pen;
+        }
+
+        public override void Draw(System.Windows.Forms.PaintEventArgs e)
+        {
+            e.Graphics.DrawLine(Pen, FirstPoint, SecondPoint);
         }
 
         /// <summary>
-        /// Удаляет линию, добавляет это действие в историю и изменяет определенным образом входные координаты, 
-        /// которые необходимы для перемещения изначальной линии
+        /// Запоминает координаты одного из концов линии, другой конец которой будет перемещаться и удаляет линию
         /// </summary>
-        public void PrepareLineToMove(List<Line> lines, History history, ref int x, ref int y)
+        public void PrepareLineToMove(List<Line> lines, History history, ref int beginX, ref int beginY)
         {
-            if (GeometricCalculations.IsPointInPoint(FirstPoint, x, y))
+            if (GeometricCalculations.IsPointInPoint(FirstPoint, beginX, beginY))
             {
-                x = SecondPoint.X; // запоминаем координаты одного из концов линии, другой конец которой будем перемещать
-                y = SecondPoint.Y;
+                beginX = SecondPoint.X;
+                beginY = SecondPoint.Y;
             }
             else
             {
-                x = FirstPoint.X;
-                y = FirstPoint.Y;
+                beginX = FirstPoint.X;
+                beginY = FirstPoint.Y;
             }
 
             lines.Remove(this);
@@ -65,7 +65,6 @@ namespace Editor
         {
             lines.Remove(this);
             history.AddHistory(new Command(this, 2), false);
-            history.ClearRedoHistory(); // при выполнении «свободной» операции стек Redo должен очищаться
         }
     }
 }
