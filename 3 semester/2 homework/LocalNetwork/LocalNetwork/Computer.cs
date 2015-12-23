@@ -32,11 +32,17 @@ namespace Network
         public bool IsJustInfected { get; set; }
 
         /// <summary>
-        /// Проверяет, заразился ли компьютер
+        /// Пытается заразить компьютер
         /// </summary>
-        public bool HasBecomeInfected(Random rand)
+        public void TryInfect(Random rand)
         {
-            return rand.Next(100) <= SystemType.ProbabilityOfInfection;
+            IsJustInfected = rand.Next(100) <= SystemType.ProbabilityOfInfection;
+            Commit();
+        }
+
+        private void Commit()
+        {
+            IsInfected = IsJustInfected;
         }
     }
 }

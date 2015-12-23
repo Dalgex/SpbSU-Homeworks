@@ -43,13 +43,9 @@ namespace Network
                 {
                     for (int j = 0; j < comp.Length; j++)
                     {
-                        if (IsConnected(i, j))
+                        if (IsConnected(i, j) && !comp[j].IsInfected)
                         {
-                            if (!comp[j].IsInfected && comp[j].HasBecomeInfected(rand))
-                            {
-                                comp[j].IsInfected = true;
-                                comp[j].IsJustInfected = true;
-                            }
+                            comp[j].TryInfect(rand);
                         }
                     }
                 }
