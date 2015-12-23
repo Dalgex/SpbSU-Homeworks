@@ -55,7 +55,7 @@ namespace Editor
             }
 
             shapes.Remove(this);
-            history.AddHistory(new CommandShape(this, "Удаление"), true);
+            history.AddHistory(new CommandShape(this, "Удаление"), false);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Editor
         public void RemoveLine(List<Shape> shapes, History history)
         {
             shapes.Remove(this);
-            history.AddHistory(new CommandShape(this, "Удаление"), false);
+            history.AddHistory(new CommandShape(this, "Удаление"), true);
         }
     }
 }

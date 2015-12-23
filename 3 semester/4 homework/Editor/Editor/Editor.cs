@@ -110,7 +110,7 @@ namespace Editor
                     shapes.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(color, width)));
                 }
 
-                history.AddHistory(new CommandShape(shapes[shapes.Count - 1], "Добавление"), false);
+                history.AddHistory(new CommandShape(shapes[shapes.Count - 1], "Добавление"), true);
             }
         }
 
@@ -144,7 +144,7 @@ namespace Editor
         /// </summary>
         private void OnColorClick(object sender, EventArgs e)
         {
-            DialogResult colorDialog = colorDialog1.ShowDialog();
+            var colorDialog = colorDialog1.ShowDialog();
 
             if (colorDialog == DialogResult.OK)
             {
@@ -160,7 +160,7 @@ namespace Editor
             if (shapes.Count != 0)
             {
                 buttonForClearing.Enabled = false;
-                actions.RemoveAllLines(ref shapes, history);
+                actions.RemoveAllShapes(ref shapes, history);
                 pictureBox.Invalidate();
             }
         }

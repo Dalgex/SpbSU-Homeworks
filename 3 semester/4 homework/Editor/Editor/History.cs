@@ -38,11 +38,11 @@ namespace Editor
         /// <summary>
         /// Добавляет в историю команду и логический параметр, показывающий, идет добавление целой команды или ее части
         /// </summary>
-        public void AddHistory(Command command, bool isPartOfCommand)
+        public void AddHistory(Command command, bool isCommandOver)
         {
             undo.Push(command);
             
-            if (!isPartOfCommand)
+            if (isCommandOver)
             {
                 undo.Push(null);
             }
