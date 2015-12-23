@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionsOnLines.cs" />
+    <Compile Include="ActionsOnShapes.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandShape.cs" />
     <Compile Include="Editor.cs">

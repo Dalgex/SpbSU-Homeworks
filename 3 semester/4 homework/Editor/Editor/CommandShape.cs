@@ -31,7 +31,7 @@ namespace Editor
             }
             else
             {
-                shapes.RemoveAt(shapes.Count - 1);
+                shapes.Remove(shape);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Editor
             }
             else
             {
-                shapes.RemoveAt(shapes.Count - 1);
+                shapes.Remove(shape);
             }
         }
 

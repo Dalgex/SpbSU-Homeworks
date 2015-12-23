@@ -46,6 +46,8 @@ namespace Editor
             {
                 undo.Push(null);
             }
+
+            ClearRedoHistory();
         }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace Editor
         /// <summary>
         /// Очищает стек Redo
         /// </summary>
-        public void ClearRedoHistory()
+        private void ClearRedoHistory()
         {
             if (redo.Count != 0)
             {

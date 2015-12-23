@@ -14,14 +14,14 @@ namespace Editor
     {
         private List<Shape> shapes = new List<Shape>(); // создаем список, в котором будем хранить нарисованные линии
         private History history = new History(); // создаем историю, где будем хранить операции (команды)
-        private ActionsOnLines actions = new ActionsOnLines(); // создаем объект действия над линиями, который будет отвечать за удаление всех линий
+        private ActionsOnShapes actions = new ActionsOnShapes(); // создаем объект действия над фигурами, который будет отвечать за удаление всех фигур
 
         private Color color = Color.Black; // задаем изначальный цвет линий
         private int width = 2; // задаем изначальную толщину линий
 
         private Color colorOfChangeLine; // представляет цвет линии, которую перемещаем
         private int widthOfChangeLine; // представляет толщину линии, которую перемещаем
-        private bool wasChange; // была ли изменена линия, т.е. перемещена
+        private bool wasMovedLine; // была ли изменена линия, т.е. перемещена
 
         private bool isPressed; // была ли нажата кнопка мыши
 
@@ -70,7 +70,7 @@ namespace Editor
                         line.PrepareLineToMove(shapes, history, ref beginX, ref beginY);
                         colorOfChangeLine = line.Pen.Color; // запоминаем цвет перемещаемой линии
                         widthOfChangeLine = (int)line.Pen.Width; // запоминаем толщину перемещаемой линии
-                        wasChange = true; // линия изменяется
+                        wasMovedLine = true; // линия изменяется
                         break;
                     }
                 }
@@ -100,10 +100,10 @@ namespace Editor
 
             if (lastX != endX || lastY != endY) // если линия не является точкой
             {
-                if (wasChange) // если линия была изменена, то добавляем линию с теми же параметрами, которые у нее были изначально
+                if (wasMovedLine) // если линия была изменена, то добавляем линию с теми же параметрами, которые у нее были изначально
                 {
                     shapes.Add(new Line(new Point(beginX, beginY), new Point(endX, endY), new Pen(colorOfChangeLine, widthOfChangeLine)));
-                    wasChange = false;
+                    wasMovedLine = false;
                 }
                 else
                 {
@@ -111,7 +111,6 @@ namespace Editor
                 }
 
                 history.AddHistory(new CommandShape(shapes[shapes.Count - 1], "Добавление"), false);
-                history.ClearRedoHistory(); // была совершена "свободная команда", поэтому очищаем стек Redo
             }
         }
 
@@ -119,7 +118,7 @@ namespace Editor
         {
             if (!isLastWasUndo && !isLastWasRedo && buttonForClearing.Enabled && buttonForRemoving.Enabled)
             {
-                if (wasChange) // значит линия сейчас изменяется, поэтому рисуем ее, используя те цвет и толщину, которые у нее были изначально
+                if (wasMovedLine) // значит линия сейчас изменяется, поэтому рисуем ее, используя те цвет и толщину, которые у нее были изначально
                 {
                     e.Graphics.DrawLine(new Pen(colorOfChangeLine, widthOfChangeLine), new Point(beginX, beginY), new Point(endX, endY));
                 }
