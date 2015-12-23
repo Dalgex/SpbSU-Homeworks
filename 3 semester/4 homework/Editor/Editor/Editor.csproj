@@ -54,6 +54,7 @@
       <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="GeometricCalculations.cs" />
+    <Compile Include="KeyboardShortcut.cs" />
     <Compile Include="PaintingInAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

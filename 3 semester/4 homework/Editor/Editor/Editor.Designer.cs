@@ -174,35 +174,35 @@
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem2.Text = "1";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItemClick);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.OnWidthItemClick);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem3.Text = "2";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItemClick);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.OnWidthItemClick);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem4.Text = "4";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.ToolStripMenuItemClick);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.OnWidthItemClick);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem5.Text = "6";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.ToolStripMenuItemClick);
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.OnWidthItemClick);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem6.Text = "8";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.ToolStripMenuItemClick);
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.OnWidthItemClick);
             // 
             // tableLayoutPanel1
             // 
