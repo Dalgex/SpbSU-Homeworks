@@ -5,10 +5,7 @@ let rec fibonacci n =
     then n
     else fibonacci(n - 1) + fibonacci(n - 2)
 
-let rec reverseList list = 
-    match list with
-    | head::tail -> List.append (reverseList tail) [head]
-    | [] -> []
+let reverseList list = List.fold (fun acc listElement -> listElement::acc) [] list
 
 let formList number = 
     let powersList n = 
