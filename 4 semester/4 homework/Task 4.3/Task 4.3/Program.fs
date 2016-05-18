@@ -1,43 +1,35 @@
-﻿let searchPhoneByName listOfNames listOfPhones name =
-    let listOfPairs =  List.zip listOfNames listOfPhones
-    let searchPairsByName = List.filter (fun (x, y) -> x = name) listOfPairs
-    List.map (fun (x, y) -> y) searchPairsByName
+﻿type Contact = { Name : string; Phone : int; }
 
-let searchNameByPhone listOfNames listOfPhones phone =
-    let listOfPairs =  List.zip listOfNames listOfPhones 
-    let searchPairByPhone = List.filter (fun (x, y) -> y = phone) listOfPairs
-    List.map (fun (x, y) -> x) searchPairByPhone
+let searchPhoneByName listOfContacts name = List.filter (fun item -> item.Name = name) listOfContacts
 
-let addRecordName listOfNames =
-   let name = System.Console.ReadLine()
-   name :: listOfNames
+let searchNameByPhone listOfContacts phone = List.filter (fun item -> item.Phone = phone) listOfContacts
 
-let addRecordPhone listOfPhones =
-   let number = System.Console.ReadLine()
-   number :: listOfPhones
+let addContactData listOfContacts (contact : Contact) = contact :: listOfContacts
 
-let createListOfNames listOfNamesAndPhones = 
-    let rec buildListOfNames listOfNamesAndPhones listOfNames = 
-        match (listOfNamesAndPhones : List<string>) with
+let createListOfContacts (contacts : List<string>) = 
+    let rec buildListOfContacts (contacts : List<string>) listOfContacts = 
+        match contacts with
         | head :: tail -> 
             let str = List.ofArray (head.Split(' '))
-            buildListOfNames tail (str.Head :: listOfNames)
-        | [] -> listOfNames
-    buildListOfNames listOfNamesAndPhones []
+            buildListOfContacts tail ({Name = str.Head; Phone = System.Int32.Parse(str.Tail.Head)} :: listOfContacts)
+        | [] -> listOfContacts
+    buildListOfContacts contacts []
 
-let createListOfPhones listOfNamesAndPhones = 
-    let rec buildListOfPhones listOfNamesAndPhones listOfPhones = 
-        match (listOfNamesAndPhones : List<string>) with
-        | head :: tail -> 
-            let str = List.ofArray (head.Split(' '))
-            buildListOfPhones tail (str.Tail.Head :: listOfPhones)
-        | [] -> listOfPhones
-    buildListOfPhones listOfNamesAndPhones []
+let contactsToString listOfContacts = List.map (fun item -> item.Name + " " + item.Phone.ToString()) listOfContacts
 
-let listToString listOfPairsNamesAndPhones = List.map (fun (x, y) -> x + " " + y) listOfPairsNamesAndPhones
+let saveToFile listOfContacts fileName = System.IO.File.WriteAllLines(fileName, contactsToString listOfContacts)
+
+let readFromFile fileName =
+    if  System.IO.File.Exists fileName then
+        let contacts = System.IO.File.ReadLines(fileName) |> Seq.toList
+        printfn "Данные из файла считаны"
+        createListOfContacts contacts
+    else 
+        printfn "Файл не существует"
+        []
 
 let menu = 
-    let rec phoneBook listOfNames listOfPhones = 
+    let rec phoneBook listOfContacts = 
         printfn "\nВведите команду:"
         printfn "0 - выйти"
         printfn "1 - добавить запись (имя и телефон)"
@@ -45,42 +37,39 @@ let menu =
         printfn "3 - найти имя по телефону"
         printfn "4 - сохранить текущие данные в файл"
         printfn "5 - считать данные из файла\n"
-        let n = System.Int32.Parse(System.Console.ReadLine())
+        let n = System.Console.ReadLine()
         match n with
-        | 0 -> printfn "Вы завершили работу"
-        | 1 -> 
+        | "0" -> printfn "Вы завершили работу"
+        | "1" -> 
             printf "Введите имя: "
-            let listNames = addRecordName listOfNames
+            let name = System.Console.ReadLine()
             printf "Введите телефон: "
-            let listPhones = addRecordPhone listOfPhones
+            let phone = System.Int32.Parse(System.Console.ReadLine())
+            let listOfRecords = addContactData listOfContacts {Name = name; Phone = phone}
             printfn "Данные успешно добавлены"
-            phoneBook listNames listPhones
-        | 2 -> 
+            phoneBook listOfRecords
+        | "2" -> 
             printf "Введите имя: "
             let name = System.Console.ReadLine();
-            if (List.exists (fun x -> x = name) listOfNames)
-            then (searchPhoneByName listOfNames listOfPhones name) |> List.iter(fun x -> printfn "%s" x)
-            else printfn "Такого имени не существует"
-            phoneBook listOfNames listOfPhones
-        | 3 -> 
+            if (List.exists (fun item -> item.Name = name) listOfContacts) then
+                (searchPhoneByName listOfContacts name) |> List.iter(fun item -> printfn "Телефон: %d" item.Phone)
+            else 
+                printfn "Такого имени не существует"
+            phoneBook listOfContacts
+        | "3" -> 
             printf "Введите телефон: "
-            let phone = System.Console.ReadLine();
-            if (List.exists (fun x -> x = phone) listOfPhones)
-            then (searchNameByPhone listOfNames listOfPhones phone) |> List.iter(fun x -> printfn "%s" x)
+            let phone = System.Int32.Parse(System.Console.ReadLine());
+            if (List.exists (fun item -> item.Phone = phone) listOfContacts)
+            then (searchNameByPhone listOfContacts phone) |> List.iter(fun item -> printfn "Имя: %s" item.Name)
             else printfn "Такого телефона не существует"
-            phoneBook listOfNames listOfPhones
-        | 4 -> 
-            System.IO.File.AppendAllLines("phone.txt", listToString (List.zip listOfNames listOfPhones))
+            phoneBook listOfContacts
+        | "4" -> 
+            saveToFile listOfContacts "phone.txt"
             printfn "Данные успешно сохранены"
-            phoneBook listOfNames listOfPhones
-        | 5 -> 
-            try 
-               let listOfNamesAndPhones = System.IO.File.ReadLines(@"phone.txt") |> Seq.toList
-               printfn "Данные были считаны"
-               phoneBook (createListOfNames listOfNamesAndPhones) (createListOfPhones listOfNamesAndPhones)
-            with 
-               | :? System.IO.FileNotFoundException -> printfn "File not found!"
+            phoneBook listOfContacts
+        | "5" -> 
+            phoneBook (readFromFile "phone.txt")
         | _ -> 
             printfn "Некорректный ввод"
-            phoneBook listOfNames listOfPhones
-    phoneBook [] []
+            phoneBook listOfContacts
+    phoneBook []
